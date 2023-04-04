@@ -9,11 +9,11 @@ import {
 import auth from '../firebase';
 import { useNavigation } from '@react-navigation/native';
 import { signOut } from "firebase/auth";
-export default function Welcome({ }) {
+export default function Profile({ }) {
 
     const navigation = useNavigation();
     const image = require("../assets/sky.png");
-    const handleSignIn = () => {
+    const handleSignOut = () => {
         signOut(auth).then(() => {
             // Sign-out successful.
             console.log("Done");
@@ -31,11 +31,12 @@ export default function Welcome({ }) {
         <SafeAreaView style={styles.container}>
 
             <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-                <Text style={styles.text}>{auth.currentUser.email} You Are Welcome</Text>
+                <Text style={styles.text}>{auth.currentUser.email}</Text>
+                <Text style={styles.text}>You Are Welcome</Text>
             </ImageBackground>
 
             <View style={styles.container2}>
-                <TouchableOpacity style={styles.buttonContainer2} onPress={handleSignIn}>
+                <TouchableOpacity style={styles.buttonContainer2} onPress={handleSignOut}>
                     <Text style={styles.text2}>Sign Out</Text>
                 </TouchableOpacity>
             </View>

@@ -26,7 +26,7 @@ export default function Register({ }) {
                 // Signed in 
                 const user = userCredential.user;
                 console.log("Done")
-                navigation.navigate('Welcome');
+                navigation.navigate('Profile');
                 // ...
             })
             .catch((error) => {

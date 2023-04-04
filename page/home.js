@@ -23,7 +23,7 @@ export default function Home({ navigation }) {
     <SafeAreaView style={styles.container}>
 
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-        <Text style={styles.text}>Sign In / Register</Text>
+        <Text style={styles.text}>HelloSky! </Text>
       </ImageBackground>
 
       <View style={styles.container2}>
@@ -35,25 +35,7 @@ export default function Home({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      <View style={styles.container}>
-        <Pressable
-          onPress={() => {
-            setTimesPressed(current => current + 1);
-          }}
-          style={({ pressed }) => [
-            {
-              backgroundColor: pressed ? 'rgb(210, 230, 255)' : 'dodgerblue',
-            },
-            styles.wrapperCustom,
-          ]}>
-          {({ pressed }) => (
-            <Text style={styles.text2}>{pressed ? 'Pressed!' : 'Press Me'}</Text>
-          )}
-        </Pressable>
-        <View style={styles.logBox}>
-          <Text testID="pressable_press_console">{textLog}</Text>
-        </View>
-      </View>
+      
     </SafeAreaView>
   );
 }
@@ -73,7 +55,7 @@ const styles = StyleSheet.create({
     //margin: 10,
   },
   image: {
-    flex: 3,
+    flex: 2.5,
     justifyContent: 'center',
     marginBottom: 10,
   },
@@ -88,6 +70,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer1: {
     width: "40%",
+    marginBottom:50,
     padding: 4,
     borderRadius: 30,
     height: 40,
@@ -102,7 +85,7 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'dodgerblue',
-    fontSize: 30,
+    fontSize: 40,
     lineHeight: 60,
     fontWeight: 'bold',
     textAlign: 'center',

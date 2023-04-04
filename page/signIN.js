@@ -24,7 +24,7 @@ export default function SignIN({ }) {
             .then((userCredential) => {
                 // Signed in 
                 console.log("Done")
-                navigation.navigate('Welcome');
+                navigation.navigate('Profile');
                 const user = userCredential.user;
                 // ...
             })
