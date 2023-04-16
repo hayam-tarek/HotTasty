@@ -40,40 +40,41 @@ export default function SignIN({ }) {
         <SafeAreaView style={styles.container}>
             <ImageBackground source={image} resizeMode="cover" style={styles.image}>
                 <Text style={styles.text}>Sign In</Text>
+                <View style={styles.inputView}>
+                    <TextInput
+                        placeholder="Email"
+                        value={email}
+                        onChangeText={(email) => setEmail(email)}
+                        keyboardType="email-address"
+                        style={styles.input}
+                    />
+                </View>
+                <View style={styles.inputView}>
+                    <TextInput
+                        placeholder="Password"
+                        value={password}
+                        onChangeText={(password) => setPassword(password)}
+                        keyboardType="default"
+                        secureTextEntry={true}
+                        style={styles.input}
+                    //onSubmitEditing={() => alert("Done")}
+                    />
+                </View>
+
+                <View style={styles.container3}>
+                    <TouchableOpacity style={styles.buttonContainer1} onPress={handleSignIn}>
+                        <Text style={styles.text2}>Sign in</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.buttonContainer2} onPress={() => navigation.navigate('ForgetPass')}>
+                        <Text style={styles.text2} >Forgot password?</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.buttonContainer3} onPress={() => navigation.navigate('Home')}>
+                        <Text style={styles.text2}>Back</Text>
+                    </TouchableOpacity>
+                </View>
             </ImageBackground>
 
-            <View style={styles.inputView}>
-                <TextInput
-                    placeholder="Email"
-                    value={email}
-                    onChangeText={(text) => setEmail(text)}
-                    keyboardType="email-address"
-                    style={styles.input}
-                />
-            </View>
-            <View style={styles.inputView}>
-                <TextInput
-                    placeholder="Password"
-                    value={password}
-                    onChangeText={(password) => setPassword(password)}
-                    keyboardType="default"
-                    secureTextEntry={true}
-                    style={styles.input}
-                //onSubmitEditing={() => alert("Done")}
-                />
-            </View>
 
-            <View style={styles.container3}>
-                <TouchableOpacity style={styles.buttonContainer1} onPress={handleSignIn}>
-                    <Text style={styles.text2}>Sign in</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonContainer2} onPress={() => navigation.navigate('ForgetPass')}>
-                    <Text style={styles.text2}>Forgot password?</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonContainer3} onPress={() => navigation.navigate('Home')}>
-                    <Text style={styles.text2}>Back</Text>
-                </TouchableOpacity>
-            </View>
 
         </SafeAreaView>
     );
@@ -98,7 +99,7 @@ const styles = StyleSheet.create({
         marginTop: 25,
         flex: 1,
         alignItems: "center",
-        justifyContent: "center",
+        //justifyContent: "center",
         flexDirection: 'column',
         //justifyContent: 'space-around',
     },
@@ -114,6 +115,7 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         borderColor: 'dodgerblue',
         backgroundColor: "#fff",
+        opacity: .75
     },
     buttonContainer1: {
         width: "80%",
@@ -149,7 +151,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         backgroundColor: 'white',
-        opacity: .75
+        opacity: .75,
+        marginVertical:100
     },
     text2: {
         color: 'white',

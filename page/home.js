@@ -24,25 +24,23 @@ export default function Home({ navigation }) {
 
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
         <Text style={styles.text}>HelloSky! </Text>
+        <View style={styles.container2}>
+          <TouchableOpacity style={styles.buttonContainer1} onPress={() => navigation.navigate('SignIN')}>
+            <Text style={styles.text2}>Sign in</Text>
+          </TouchableOpacity>
+          <TouchableOpacity style={styles.buttonContainer2} onPress={() => navigation.navigate('Register')}>
+            <Text style={styles.text2}>Register</Text>
+          </TouchableOpacity>
+        </View>
+        
       </ImageBackground>
-
-      <View style={styles.container2}>
-        <TouchableOpacity style={styles.buttonContainer1} onPress={() => navigation.navigate('SignIN')}>
-          <Text style={styles.text2}>Sign in</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonContainer2} onPress={() => navigation.navigate('Register')}>
-          <Text style={styles.text2}>Register</Text>
-        </TouchableOpacity>
-      </View>
-
-      
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 2,
+    flex: 1,
     justifyContent: 'center',
     flexDirection: 'column',
     justifyContent: 'space-around',
@@ -55,7 +53,7 @@ const styles = StyleSheet.create({
     //margin: 10,
   },
   image: {
-    flex: 2.5,
+    flex: 1,
     justifyContent: 'center',
     marginBottom: 10,
   },
@@ -70,7 +68,7 @@ const styles = StyleSheet.create({
   },
   buttonContainer1: {
     width: "40%",
-    marginBottom:50,
+    marginBottom: 50,
     padding: 4,
     borderRadius: 30,
     height: 40,
@@ -85,12 +83,13 @@ const styles = StyleSheet.create({
   },
   text: {
     color: 'dodgerblue',
-    fontSize: 40,
+    fontSize: 30,
     lineHeight: 60,
     fontWeight: 'bold',
     textAlign: 'center',
     backgroundColor: 'white',
-    opacity: .75
+    opacity: .75,
+    marginVertical:200,
   },
   text2: {
     color: 'white',
