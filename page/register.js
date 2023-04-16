@@ -11,6 +11,10 @@ import auth from '../firebase';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Register({ }) {
+    React.useLayoutEffect(() => {
+        navigation.setOptions({headerShown: false});
+         }, []);
+      
 
     const image = require("../assets/sky.png");
     const [email, setEmail] = useState("");
