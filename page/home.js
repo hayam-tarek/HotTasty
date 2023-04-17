@@ -9,19 +9,10 @@ import {
 export default function Home({ navigation }) {
 
   React.useLayoutEffect(() => {
-  navigation.setOptions({headerShown: false});
-   }, []);
+    navigation.setOptions({ headerShown: false });
+  }, []);
 
   const image = require("../assets/back1.png");
-  const [timesPressed, setTimesPressed] = useState(0);
-
-  let textLog = '';
-  if (timesPressed > 1) {
-    textLog = timesPressed + 'x onPress';
-  } else if (timesPressed > 0) {
-    textLog = timesPressed + 'x onPress';
-  }
-
 
   return (
     <SafeAreaView style={styles.container}>
@@ -46,6 +37,7 @@ export default function Home({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
   },
   image: {
     flex: 1,
@@ -76,12 +68,12 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
   },
   text: {
-    color: "#C49D43" ,
+    color: "#C49D43",
     fontSize: 40,
     lineHeight: 60,
     fontWeight: 'bold',
     textAlign: 'center',
-    
+
     opacity: .95
   },
   text2: {
