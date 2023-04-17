@@ -18,9 +18,9 @@ export default function SignUp({ navigation }) {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed Up 
+                handleSetData();
                 console.log('Signed Up Successfully')
                 const user = userCredential.user;
-                handleSetData();
                 navigation.navigate("SignIN")
             })
             .catch((error) => {
@@ -35,6 +35,11 @@ export default function SignUp({ navigation }) {
                 lastname: lastname,
                 birthdate: birthdate,
                 phone: phone
+            }).catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorMessage)
+                // ..
             });
         };
     }

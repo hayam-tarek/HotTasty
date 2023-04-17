@@ -7,7 +7,7 @@ import {
     SafeAreaView, TextInput, Pressable, secureTextEntry
 } from 'react-native';
 import { signInWithEmailAndPassword } from "firebase/auth";
-import auth from '../middlewere/firebase';
+import { auth, db } from '../middlewere/firebase';
 import { useNavigation } from '@react-navigation/native';
 
 export default function SignIN({ }) {
