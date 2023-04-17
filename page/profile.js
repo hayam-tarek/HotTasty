@@ -6,7 +6,7 @@ import {
     Button, TouchableOpacity, ImageBackground,
     SafeAreaView, TextInput, Pressable, secureTextEntry
 } from 'react-native';
-import auth from '../firebase';
+import auth from '../middlewere/firebase';
 import { useNavigation } from '@react-navigation/native';
 import { signOut } from "firebase/auth";
 export default function Profile({ }) {

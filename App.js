@@ -7,33 +7,14 @@ import SignIN from './page/signIN';
 import Profile from './page/profile';
 import GetStart from './page/getStart';
 import ForgetPass from './page/forgetPass';
+import Index from "./routes/index";
 
-const Stack = createNativeStackNavigator();
+//const Stack = createNativeStackNavigator();
 
 export default function App() {
 
   return (
-    <NavigationContainer>
-      <Stack.Navigator
-        screenOptions={{
-          headerStyle: {
-            backgroundColor: 'white',
-          },
-          headerTintColor: 'dodgerblue',
-          headerTitleStyle: {
-            fontWeight: 'bold',
-          },
-        }}
-      >
-        <Stack.Screen name="GetStart" component={GetStart} />
-        <Stack.Screen name="Home" component={Home} />
-        <Stack.Screen name="Register" component={Register} />
-        <Stack.Screen name="SignIN" component={SignIN} />
-        <Stack.Screen name="Profile" component={Profile} />
-        <Stack.Screen name="ForgetPass" component={ForgetPass} />
-
-      </Stack.Navigator>
-    </NavigationContainer>
+    <Index />
   );
 }
 ;

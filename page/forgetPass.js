@@ -6,7 +6,7 @@ import {
     SafeAreaView, TextInput, Pressable, secureTextEntry
 } from 'react-native';
 import { sendPasswordResetEmail } from "firebase/auth";
-import auth from '../firebase';
+import auth from '../middlewere/firebase';
 
 export default function ForgetPass({ navigation }) {
 

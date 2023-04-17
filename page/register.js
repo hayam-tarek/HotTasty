@@ -7,7 +7,7 @@ import {
     SafeAreaView, TextInput, Pressable, secureTextEntry
 } from 'react-native';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import auth from '../firebase';
+import auth from '../middlewere/firebase';
 import { useNavigation } from '@react-navigation/native';
 
 export default function Register({ }) {
