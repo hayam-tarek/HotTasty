@@ -2,13 +2,18 @@ import React, { Component } from 'react'
 import { useState } from "react";
 import {
     StyleSheet, Text, View,
-    Button, TouchableOpacity, ImageBackground,
+    Button, TouchableOpacity, Image,
     SafeAreaView, TextInput, Pressable, secureTextEntry
 } from 'react-native';
 import { sendPasswordResetEmail } from "firebase/auth";
 import auth from '../middlewere/firebase';
 
 export default function ForgetPass({ navigation }) {
+
+    React.useLayoutEffect(() => {
+
+        navigation.setOptions({ headerShown: false });
+    }, []);
 
     const image = require("../assets/sky.png");
     const [email, setEmail] = useState("");
@@ -32,29 +37,24 @@ export default function ForgetPass({ navigation }) {
 
     return (
         <SafeAreaView style={styles.container}>
+            <Image style={styles.image} source={require('../assets/text.png')}></Image>
+            <Text style={styles.text}>Enter your email to reset your password!</Text>
+            <View style={styles.inputView}>
+                <TextInput
+                    placeholder="Email"
+                    value={email}
+                    onChangeText={(text) => setEmail(text)}
+                    keyboardType="email-address"
+                    style={styles.inputText}
+                />
+            </View>
 
-            <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-                <Text style={styles.text}>Forget Password?</Text>
-                <View style={styles.inputView}>
-                    <TextInput
-                        placeholder="Email"
-                        value={email}
-                        onChangeText={(text) => setEmail(text)}
-                        keyboardType="email-address"
-                        style={styles.input}
-                    />
-                </View>
-
-                <View style={styles.container3}>
-                    <TouchableOpacity style={styles.buttonContainer1} onPress={handleForgetPass}>
-                        <Text style={styles.text2}>Send verification link</Text>
-                    </TouchableOpacity>
-                    <TouchableOpacity style={styles.buttonContainer2} onPress={() => navigation.navigate('SignIN')}>
-                        <Text style={styles.text2}>Back to sign in</Text>
-                    </TouchableOpacity>
-                </View>
-            </ImageBackground>
-
+                <TouchableOpacity style={styles.buttonforgot} onPress={handleForgetPass}>
+                    <Text style={styles.btnTextforgot}>Send verification link</Text>
+                </TouchableOpacity>
+                <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('SignIN')}>
+                    <Text style={styles.btnText}>Back to sign in</Text>
+                </TouchableOpacity>
 
         </SafeAreaView>
     );
@@ -63,93 +63,91 @@ export default function ForgetPass({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        //justifyContent: 'center',
-        flexDirection: 'column',
-        justifyContent: 'space-around',
-    },
-    container2: {
-        flex: 1,
-        flexDirection: 'row',
         justifyContent: 'center',
-        justifyContent: 'space-around',
-        //margin: 10,
-    },
-    container3: {
-        flex: 1,
-        alignItems: "center",
-        //justifyContent: "center",
         flexDirection: 'column',
+        backgroundColor: 'white',
+        alignItems: "center",
         //justifyContent: 'space-around',
     },
     image: {
-        flex: 1,
-        justifyContent: 'center',
-        marginBottom: 10,
+        width: 400,
+        height: 100,
     },
+    
     inputView: {
-        //width: "70%",
-        height: 50,
-        //marginBottom: 20,
-        borderWidth: 2,
-        borderRadius: 30,
-        borderColor: 'dodgerblue',
-        backgroundColor: "#fff",
-        marginBottom: 10,
-        opacity: .75
-    },
-    buttonContainer1: {
         width: "80%",
-        padding: 4,
-        borderRadius: 30,
-        height: 40,
-        backgroundColor: "dodgerblue",
+        backgroundColor: "white",
+        borderWidth: 2,
+        borderColor: '#c16419',
+        borderRadius: 10,
+        height: 50,
         marginBottom: 10,
+        justifyContent: "center",
+        padding: 20,
+        marginBottom:70
+    },
+    inView: {
+        marginVertical: 50,
+        width: "100%",
+        justifyContent: "center",
+        alignItems: "center",
 
     },
-    buttonContainer2: {
+    inputText: {
+        //fontWeight: 'bold',
+        fontSize: 20,
+        height: 50,
+        color: "#1b3b52",
+
+    },
+    buttonContainer: {
         width: "60%",
-        padding: 4,
-        borderRadius: 30,
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: '#c16419',
         height: 40,
-        backgroundColor: "dodgerblue",
-        marginBottom: 10,
+        alignItems: "center",
+        justifyContent: "center",
+        // marginLeft: -190,
+        // marginTop: -60,
+        marginBottom: 15,
+        backgroundColor: 'rgba(193, 100, 25, 0.3)',
 
     },
-    text: {
-        color: 'dodgerblue',
-        fontSize: 30,
-        lineHeight: 60,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        backgroundColor: 'white',
-        opacity: .75,
-        marginVertical: 150
+    buttonforgot: {
+        width: "60%",
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: '#c16419',
+        height: 40,
+        alignItems: "center",
+        justifyContent: "center",
+        // marginLeft: -190,
+        // marginTop: -60,
+        marginBottom: 15,
+        backgroundColor: 'rgba(193, 100, 25, 0.3)',
+
     },
-    text2: {
-        color: 'white',
+    btnText: {
+        color: '#1b3b52',
         fontSize: 20,
         lineHeight: 30,
         fontWeight: 'bold',
         textAlign: 'center',
-        borderRadius: 30,
     },
-    input: {
-        height: 35,
-        margin: 5,
-        padding: 5,
-        color: "black",
+    text: {
+        color: '#1b3b52',
+        fontSize: 20,
+        lineHeight: 30,
+        fontWeight: 'bold',
+        textAlign: 'center',
+        marginBottom:30,
     },
-    wrapperCustom: {
-        padding: 4,
-        borderRadius: 30,
-        marginTop: 30,
-    },
-    logBox: {
-        padding: 10,
-        //margin: 10,
-        borderWidth: StyleSheet.hairlineWidth,
-        borderColor: '#f0f0f0',
-        backgroundColor: '#f9f9f9',
-        borderRadius: 30,
+    btnTextforgot: {
+        color: '#1b3b52',
+        fontSize: 20,
+        lineHeight: 30,
+        fontWeight: 'bold',
+        textAlign: 'center',
     },
 });

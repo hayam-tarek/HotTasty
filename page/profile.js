@@ -71,33 +71,32 @@ export default function Profile({ navigation }) {
                             </TouchableOpacity>
                         </View>
 
-
+                        <Text style={styles.text}>Email</Text>
                         <View style={styles.inputMail}>
                             <Text style={styles.mail}>{auth.currentUser.email}</Text>
                         </View>
-
-                        <View style={styles.inputView1}>
-
-                            <Text style={styles.inputText1}>{firstname}</Text>
-
+                        <Text style={styles.text}>First name</Text>
+                        <View style={styles.inputView}>
+                            <Text style={styles.inputText}>{firstname}</Text>
+                        </View>
+                        <Text style={styles.text}>Last name</Text>
+                        <View style={styles.inputView}>
+                            <Text style={styles.inputText}>{lastname}</Text>
+                        </View>
+                        <Text style={styles.text}>Birth date</Text>
+                        <View style={styles.inputView}>
+                            <Text style={styles.inputText}>{birthdate}</Text>
+                        </View>
+                        <Text style={styles.text}>Phone number</Text>
+                        <View style={styles.inputView}>
+                            <Text style={styles.inputText}>{phone}</Text>
 
                         </View>
-                        <View style={styles.inputView2}>
-                            <Text style={styles.inputText1}>{lastname}</Text>
-                        </View>
-
-                        <View style={styles.inputView3}>
-                            <Text style={styles.inputText1}>{birthdate}</Text>
-                        </View>
-                        <View style={styles.inputView4}>
-                            <Text style={styles.inputText1}>{phone}</Text>
-
-                        </View>
-                        <TouchableOpacity style={styles.savebtn} onPress={handleEdit}>
-                            <Text style={styles.outText}>Edit</Text>
+                        <TouchableOpacity style={styles.ESbtn} onPress={handleEdit}>
+                            <Text style={styles.btnText}>Edit</Text>
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.outbtn} onPress={handleSignOut}>
-                            <Text style={styles.outText}>Sign Out</Text>
+                            <Text style={styles.btnText}>Sign Out</Text>
 
                         </TouchableOpacity>
                     </ScrollView>
@@ -121,41 +120,41 @@ export default function Profile({ navigation }) {
                             <Text style={styles.mail}>{auth.currentUser.email}</Text>
                         </View>
 
-                        <View style={styles.inputView1}>
-                            <TextInput style={styles.inputText1}
+                        <View style={styles.inputView}>
+                            <TextInput style={styles.inputText}
                                 placeholder="FirstName"
-                                placeholderTextColor="#003f5c"
+                                //placeholderTextColor="#003f5c"
                                 onChangeText={firstname => setFirst(firstname)}
                             />
                         </View>
-                        <View style={styles.inputView2}>
-                            <TextInput style={styles.inputText1}
+                        <View style={styles.inputView}>
+                            <TextInput style={styles.inputText}
                                 placeholder="LastName"
-                                placeholderTextColor="#003f5c"
+                                //placeholderTextColor="#003f5c"
                                 onChangeText={lastname => setLast(lastname)}
                             />
                         </View>
 
-                        <View style={styles.inputView3}>
-                            <TextInput style={styles.inputText1}
+                        <View style={styles.inputView}>
+                            <TextInput style={styles.inputText}
                                 placeholder="BirthDate"
-                                placeholderTextColor="#003f5c"
+                                //placeholderTextColor="#003f5c"
                                 onChangeText={birthdate => setBirth(birthdate)}
                             />
                         </View>
-                        <View style={styles.inputView4}>
-                            <TextInput style={styles.inputText1}
+                        <View style={styles.inputView}>
+                            <TextInput style={styles.inputText}
                                 placeholder="PhoneNumber"
-                                placeholderTextColor="#003f5c"
+                                //placeholderTextColor="#003f5c"
                                 onChangeText={phone => setPhone(phone)}
                             />
                         </View>
-                        <TouchableOpacity style={styles.editbtn} onPress={handleSave}>
-                            <Text style={styles.outText}>Save</Text>
+                        <TouchableOpacity style={styles.ESbtn} onPress={handleSave}>
+                            <Text style={styles.btnText}>Save</Text>
 
                         </TouchableOpacity>
                         <TouchableOpacity style={styles.outbtn} onPress={handleSignOut}>
-                            <Text style={styles.outText}>Sign Out</Text>
+                            <Text style={styles.btnText}>Sign Out</Text>
 
                         </TouchableOpacity>
                     </ScrollView>
@@ -166,14 +165,8 @@ export default function Profile({ navigation }) {
 };
 
 const styles = StyleSheet.create({
-    // container: {
-    //   flex: 1,
-    //   backgroundColor: 'darkorchid',
-    //   alignItems: 'center',
-    //   justifyContent: 'center',
-    // },
     header: {
-        backgroundColor: '#00BFFF',
+        backgroundColor: '#c16419',
         height: 100,
     },
     avatar: {
@@ -185,109 +178,82 @@ const styles = StyleSheet.create({
         marginTop: -70,
         marginBottom: 30
     },
-    inputView1: {
-        width: "80%",
-        backgroundColor: "orangered",
+    inputView: {
+        width: "100%",
+        backgroundColor: "white",
+        borderWidth: 2,
+        borderColor: '#c16419',
         borderRadius: 10,
         height: 50,
-        marginLeft: 20,
-        marginBottom: 20,
+        marginBottom: 10,
         justifyContent: "center",
-        padding: 20
-    },
-    inputView2: {
-        width: "80%",
-        backgroundColor: "orangered",
-        borderRadius: 10,
-        height: 50,
-        marginLeft: 20,
-        marginBottom: 20,
-        justifyContent: "center",
-        padding: 20
-    },
-    inputView3: {
-        width: "80%",
-        backgroundColor: "orangered",
-        borderRadius: 10,
-        height: 50,
-        marginLeft: 20,
-        marginBottom: 20,
-        justifyContent: "center",
-        padding: 20
-    },
-    inputView4: {
-        width: "80%",
-        backgroundColor: "orangered",
-        borderRadius: 10,
-        height: 50,
-        marginLeft: 20,
-        marginBottom: 20,
-        justifyContent: "center",
-        padding: 20
+        padding: 0,
     },
     inputMail: {
-        width: "80%",
-        backgroundColor: "darkorchid",
+        width: "100%",
+        backgroundColor: "white",
+        borderWidth: 2,
+        borderColor: '#c16419',
         borderRadius: 10,
         height: 50,
-        marginBottom: 20,
-        marginLeft: 20,
+        marginBottom: 10,
         justifyContent: "center",
-        padding: 20
+        padding: 0
     },
-    text: {
-        fontWeight: 'bold',
-        color: 'black',
-        fontSize: 30,
-        padding: 20
-    },
-    inputText1: {
-        fontWeight: 'bold',
+    inputText: {
+        //fontWeight: 'bold',
         fontSize: 20,
-        height: 30,
-        color: "white"
+        height: 50,
+        color: "#1b3b52",
+        padding: 10,
     },
     mail: {
         fontWeight: 'bold',
         fontSize: 20,
-        height: 35,
-        color: "black"
+        height: 50,
+        color: "#1b3b52",
+        padding: 10
     },
     outbtn: {
         width: "40%",
-        borderRadius: 20,
-        height: 50,
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: '#c16419',
+        height: 40,
         alignItems: "center",
         justifyContent: "center",
-        marginTop: -70,
+        marginTop: -60,
         marginLeft: 10,
         marginBottom: 20,
-        backgroundColor: "orange",
+        backgroundColor: 'rgba(193, 100, 25, 0.3)',
     },
-    editbtn: {
+    ESbtn: {
         width: "40%",
-        borderRadius: 20,
-        height: 50,
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: '#c16419',
+        height: 40,
         alignItems: "center",
         justifyContent: "center",
         marginTop: 20,
         marginLeft: 200,
         marginBottom: 20,
-        backgroundColor: "orange",
+        backgroundColor: 'rgba(193, 100, 25, 0.3)',
     },
-    savebtn: {
-        width: "40%",
-        borderRadius: 20,
-        height: 50,
-        alignItems: "center",
-        justifyContent: "center",
-        marginTop: 20,
-        marginLeft: 200,
-        marginBottom: 20,
-        backgroundColor: "orange",
-    },
-    outText: {
+    btnText: {
+        color: '#1b3b52',
+        fontSize: 27.5,
+        lineHeight: 30,
         fontWeight: 'bold',
-        fontSize: 20
-    }
+        textAlign: 'center',
+    },
+    text: {
+        color: '#1b3b52',
+        fontSize: 20,
+        lineHeight: 30,
+        fontWeight: 'bold',
+        //textAlign: 'center',
+        //marginBottom:30,
+        padding:10,
+    },
 });

@@ -7,6 +7,10 @@ import { auth, db } from '../middlewere/firebase';
 
 
 export default function SignUp({ navigation }) {
+    React.useLayoutEffect(() => {
+        navigation.setOptions({ headerShown: false });
+    }, []);
+
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [firstname, setFirst] = useState("");
@@ -18,9 +22,9 @@ export default function SignUp({ navigation }) {
         createUserWithEmailAndPassword(auth, email, password)
             .then((userCredential) => {
                 // Signed Up 
-                handleSetData();
                 console.log('Signed Up Successfully')
                 const user = userCredential.user;
+                handleSetData();
                 navigation.navigate("SignIN")
             })
             .catch((error) => {
@@ -35,45 +39,41 @@ export default function SignUp({ navigation }) {
                 lastname: lastname,
                 birthdate: birthdate,
                 phone: phone
-            }).catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorMessage)
-                // ..
             });
         };
     }
     return (
         <KeyboardAvoidingView style={styles.container} behavior='height'>
 
-            <Text style={styles.text}>SignUp With Us</Text>
-            <StatusBar style="auto" />
-            <View style={styles.inputView1}>
+            {/* <Text style={styles.text}>SignUp With Us</Text> */}
+            <Image style={styles.image} source={require('../assets/text.png')}></Image>
+
+            <View style={styles.inputView}>
                 <TextInput style={styles.inputText}
-                    placeholder="FirstName"
-                    placeholderTextColor="#003f5c"
+                    placeholder="First Name"
+                    //placeholderTextColor="#003f5c"
                     onChangeText={firstname => setFirst(firstname)}
                 />
             </View>
-            <View style={styles.inputView2}>
+            <View style={styles.inputView}>
                 <TextInput style={styles.inputText}
-                    placeholder="LastName"
-                    placeholderTextColor="#003f5c"
+                    placeholder="Last Name"
+                    //placeholderTextColor="#003f5c"
                     onChangeText={lastname => setLast(lastname)}
                 />
             </View>
 
-            <View style={styles.inputView3}>
+            <View style={styles.inputView}>
                 <TextInput style={styles.inputText}
-                    placeholder="BirthDate"
-                    placeholderTextColor="#003f5c"
+                    placeholder="Birth Date"
+                    //placeholderTextColor="#003f5c"
                     onChangeText={birthdate => setBirth(birthdate)}
                 />
             </View>
-            <View style={styles.inputView4}>
+            <View style={styles.inputView}>
                 <TextInput style={styles.inputText}
-                    placeholder="PhoneNumber"
-                    placeholderTextColor="#003f5c"
+                    placeholder="Phone Number"
+                    //placeholderTextColor="#003f5c"
                     onChangeText={phone => setPhone(phone)}
                 />
             </View>
@@ -81,25 +81,25 @@ export default function SignUp({ navigation }) {
             <View style={styles.inputView}>
                 <TextInput style={styles.inputText}
                     placeholder="Email"
-                    placeholderTextColor="#003f5c"
+                    //placeholderTextColor="#003f5c"
                     onChangeText={email => setEmail(email)}
                 />
             </View>
             <View style={styles.inputView}>
                 <TextInput style={styles.inputText}
                     placeholder="Password"
-                    placeholderTextColor="#003f5c"
+                    //placeholderTextColor="#003f5c"
                     secureTextEntry={true}
                     onChangeText={password => setPassword(password)}
                 />
             </View>
 
             <TouchableOpacity style={styles.SignUpbtn} onPress={handleSignUp}>
-                <Text style={styles.SignUpText}>SignUp</Text>
+                <Text style={styles.btnText}>Sign Up</Text>
 
             </TouchableOpacity>
             <TouchableOpacity style={styles.Backbtn} onPress={() => navigation.navigate("Home")}>
-                <Text style={styles.SignUpText}>Go Home</Text>
+                <Text style={styles.btnText}>Go Back</Text>
             </TouchableOpacity>
         </KeyboardAvoidingView>
 
@@ -109,7 +109,7 @@ export default function SignUp({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        backgroundColor: 'indigo',
+        backgroundColor: 'white',
         alignItems: 'center',
         justifyContent: 'center',
     },
@@ -120,85 +120,58 @@ const styles = StyleSheet.create({
         padding: 30
     },
     image: {
-        marginBottom: 10,
-        width: 200,
-        height: 200,
+        width: 400,
+        height: 100,
     },
     SignUpbtn: {
-        width: "35%",
-        borderRadius: 20,
-        height: 50,
+        width: "45%",
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: '#c16419',
+        height: 40,
         alignItems: "center",
         justifyContent: "center",
         marginLeft: 190,
         marginTop: 20,
         marginBottom: 20,
-        backgroundColor: "orange",
+        backgroundColor: 'rgba(193, 100, 25, 0.3)',
     },
     Backbtn: {
-        width: "35%",
-        borderRadius: 20,
-        height: 50,
+        width: "45%",
+        borderRadius: 10,
+        borderWidth: 2,
+        borderColor: '#c16419',
+        height: 40,
         alignItems: "center",
         justifyContent: "center",
         marginLeft: -190,
-        marginTop: -70,
+        marginTop: -60,
         marginBottom: 20,
-        backgroundColor: "orange",
+        backgroundColor: 'rgba(193, 100, 25, 0.3)',
     },
     inputView: {
-        width: "70%",
-        backgroundColor: "orangered",
-        borderRadius: 25,
+        width: "80%",
+        backgroundColor: "white",
+        borderWidth: 2,
+        borderColor: '#c16419',
+        borderRadius: 10,
         height: 50,
-        marginBottom: 20,
+        marginBottom: 10,
         justifyContent: "center",
-        padding: 20
-    },
-    inputView1: {
-        width: "70%",
-        backgroundColor: "orangered",
-        borderRadius: 25,
-        height: 50,
-        marginBottom: 20,
-        justifyContent: "center",
-        padding: 20
-    },
-    inputView2: {
-        width: "70%",
-        backgroundColor: "orangered",
-        borderRadius: 25,
-        height: 50,
-        marginBottom: 20,
-        justifyContent: "center",
-        padding: 20
-    },
-    inputView3: {
-        width: "70%",
-        backgroundColor: "orangered",
-        borderRadius: 25,
-        height: 50,
-        marginBottom: 20,
-        justifyContent: "center",
-        padding: 20
-    },
-    inputView4: {
-        width: "70%",
-        backgroundColor: "orangered",
-        borderRadius: 25,
-        height: 50,
-        marginBottom: 20,
-        justifyContent: "center",
-        padding: 20
+        padding: 20,
     },
     inputText: {
-        fontWeight: 'bold',
+        //fontWeight: 'bold',
         fontSize: 20,
         height: 50,
-        color: "white"
+        color: "#1b3b52",
+
     },
-    SignUpText: {
+    btnText: {
+        color: '#1b3b52',
+        fontSize: 27.5,
+        lineHeight: 30,
         fontWeight: 'bold',
-        fontSize: 20
+        textAlign: 'center',
     }
 });
