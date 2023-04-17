@@ -1,32 +1,32 @@
 import React, { useState } from 'react';
 import { Video } from 'expo-av';
-import { StyleSheet, View, TouchableOpacity, Text, StatusBar } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, StatusBar, SafeAreaView } from 'react-native';
 
 export default function GetStart({ navigation }) {
- 
+
   React.useLayoutEffect(() => {
-    navigation.setOptions({headerShown: false});
-     }, []);
+    navigation.setOptions({ headerShown: false });
+  }, []);
 
   const [status, setStatus] = useState({});
 
   const video = require("../assets/back3.mp4");
 
-    return (
-        <SafeAreaView style={styles.container}>
+  return (
+    <SafeAreaView style={styles.container}>
 
-            <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-                <Text style={styles.text}>Hello, sky!</Text>
-            </ImageBackground>
+      <ImageBackground source={image} resizeMode="cover" style={styles.image}>
+        <Text style={styles.text}>Hello, sky!</Text>
+      </ImageBackground>
 
-            <View style={styles.container2}>
-                <TouchableOpacity style={styles.buttonContainer2} onPress={() => navigation.navigate('Home')}>
-                    <Text style={styles.text2}>Get Started</Text>
-                </TouchableOpacity>
-            </View>
+      <View style={styles.container2}>
+        <TouchableOpacity style={styles.buttonContainer2} onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.text2}>Get Started</Text>
+        </TouchableOpacity>
+      </View>
 
-        </SafeAreaView>
-    );
+    </SafeAreaView>
+  );
 }
 
 const styles = StyleSheet.create({
@@ -49,7 +49,7 @@ const styles = StyleSheet.create({
     borderRadius: 10,
     borderWidth: 2,
     borderColor: '#1b3b52',
-    backgroundColor:'rgba(255, 255, 255, .4)',
+    backgroundColor: 'rgba(255, 255, 255, .4)',
     position: 'absolute',
     bottom: 30,
     // height: 50,

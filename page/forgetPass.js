@@ -123,7 +123,7 @@ const styles = StyleSheet.create({
         textAlign: 'center',
         backgroundColor: 'white',
         opacity: .75,
-        marginVertical:150
+        marginVertical: 150
     },
     text2: {
         color: 'white',

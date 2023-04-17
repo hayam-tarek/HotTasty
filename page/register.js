@@ -1,12 +1,12 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
-import { StyleSheet, Text, View,SafeAreaView,ScrollView, Image, TextInput, Button, TouchableOpacity,KeyboardAvoidingView,Keyboard } from 'react-native';
+import { StyleSheet, Text, View, SafeAreaView, ScrollView, Image, TextInput, Button, TouchableOpacity, KeyboardAvoidingView, Keyboard } from 'react-native';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import {doc , setDoc} from 'firebase/firestore';
-import {auth , db} from '../middlewere/firebase';
+import { doc, setDoc } from 'firebase/firestore';
+import { auth, db } from '../middlewere/firebase';
 
 
-export default function SignUp({navigation}) {
+export default function SignUp({ navigation }) {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [firstname, setFirst] = useState("");
@@ -14,33 +14,33 @@ export default function SignUp({navigation}) {
     const [birthdate, setBirth] = useState("");
     const [phone, setPhone] = useState("");
     // const [username, setUsername] = useState("");
-    const handleSignUp = () =>{
-    createUserWithEmailAndPassword(auth, email, password)
-    .then((userCredential) => {
-        // Signed Up 
-        console.log('Signed Up Successfully')
-        const user = userCredential.user;
-        handleSetData();
-        navigation.navigate("SignIN")
-      })
-      .catch((error) => {
-        const errorCode = error.code;
-        const errorMessage = error.message;
-        console.log(errorMessage)
-        // ..
-      });
-      const handleSetData = async() => {
-        await setDoc(doc(db, "Users", auth.currentUser.uid), {
-              firstname: firstname,
-              lastname: lastname,
-              birthdate: birthdate,
-              phone: phone
-          });
-    };
-}
+    const handleSignUp = () => {
+        createUserWithEmailAndPassword(auth, email, password)
+            .then((userCredential) => {
+                // Signed Up 
+                console.log('Signed Up Successfully')
+                const user = userCredential.user;
+                handleSetData();
+                navigation.navigate("SignIN")
+            })
+            .catch((error) => {
+                const errorCode = error.code;
+                const errorMessage = error.message;
+                console.log(errorMessage)
+                // ..
+            });
+        const handleSetData = async () => {
+            await setDoc(doc(db, "Users", auth.currentUser.uid), {
+                firstname: firstname,
+                lastname: lastname,
+                birthdate: birthdate,
+                phone: phone
+            });
+        };
+    }
     return (
         <KeyboardAvoidingView style={styles.container} behavior='height'>
-            
+
             <Text style={styles.text}>SignUp With Us</Text>
             <StatusBar style="auto" />
             <View style={styles.inputView1}>
@@ -57,7 +57,7 @@ export default function SignUp({navigation}) {
                     onChangeText={lastname => setLast(lastname)}
                 />
             </View>
-            
+
             <View style={styles.inputView3}>
                 <TextInput style={styles.inputText}
                     placeholder="BirthDate"
@@ -72,7 +72,7 @@ export default function SignUp({navigation}) {
                     onChangeText={phone => setPhone(phone)}
                 />
             </View>
-        
+
             <View style={styles.inputView}>
                 <TextInput style={styles.inputText}
                     placeholder="Email"
@@ -88,12 +88,12 @@ export default function SignUp({navigation}) {
                     onChangeText={password => setPassword(password)}
                 />
             </View>
-        
+
             <TouchableOpacity style={styles.SignUpbtn} onPress={handleSignUp}>
                 <Text style={styles.SignUpText}>SignUp</Text>
-                
+
             </TouchableOpacity>
-            <TouchableOpacity style={styles.Backbtn}  onPress={() => navigation.navigate("Home")}>
+            <TouchableOpacity style={styles.Backbtn} onPress={() => navigation.navigate("Home")}>
                 <Text style={styles.SignUpText}>Go Home</Text>
             </TouchableOpacity>
         </KeyboardAvoidingView>
@@ -140,7 +140,7 @@ const styles = StyleSheet.create({
         marginTop: -70,
         marginBottom: 20,
         backgroundColor: "orange",
-    },   
+    },
     inputView: {
         width: "70%",
         backgroundColor: "orangered",

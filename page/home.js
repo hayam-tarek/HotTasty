@@ -48,7 +48,7 @@ const styles = StyleSheet.create({
     justifyContent: 'flex-end',
     width: '100%',
     marginBottom: 275,
-    
+
   },
   buttonContainer: {
     //flexDirection: 'row',
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     width: '35%',
     alignItems: 'center',
     justifyContent: 'center',
-    marginBottom:5,
+    marginBottom: 5,
   },
   text: {
     color: "#c16419",
@@ -73,9 +73,9 @@ const styles = StyleSheet.create({
     lineHeight: 60,
     fontWeight: 'bold',
     textAlign: 'center',
-    backgroundColor:'white',
+    backgroundColor: 'white',
     opacity: .90,
-    marginBottom:30
+    marginBottom: 30
   },
   text2: {
     color: '#c16419',
