@@ -1,126 +1,293 @@
-import React, { Component } from 'react'
-import { useState } from "react";
 import { StatusBar } from 'expo-status-bar';
-import {
-    StyleSheet, Text, View,
-    Button, TouchableOpacity, ImageBackground,
-    SafeAreaView, TextInput, Pressable, secureTextEntry
-} from 'react-native';
-import auth from '../middlewere/firebase';
-import { useNavigation } from '@react-navigation/native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, ScrollView, Pressable} from 'react-native';
 import { signOut } from "firebase/auth";
-export default function Profile({ }) {
+import { doc, getDoc } from "firebase/firestore";
+import { updateDoc } from "firebase/firestore";
+import {auth , db} from '../middlewere/firebase';
 
-    const navigation = useNavigation();
-    const image = require("../assets/sky.png");
-    const handleSignOut = () => {
+export default function Profile({navigation}) {
+    const [firstname, setFirst] = useState("");
+    const [lastname, setLast] = useState("");
+    const [birthdate, setBirth] = useState("");
+    const [phone, setPhone] = useState("");
+    const [viewMode, setViewMode] = useState(true);
+
+    const handleShowData = async() =>{
+        const docRef = doc(db, "Users", auth.currentUser.uid);
+        const docSnap = await getDoc(docRef);
+
+       if (docSnap.exists()) {
+       console.log("Document data:", docSnap.data());
+       const data = docSnap.data();
+       setFirst(data.firstname);
+       setLast(data.lastname);
+       setBirth(data.birthdate);
+       setPhone(data.phone);
+       } else {
+       // docSnap.data() will be undefined in this case
+        console.log("No such document!");
+        }
+       }
+    
+     const handleSave = () =>{
+        setViewMode(true);
+        handleUpdate();
+    } 
+    const handleUpdate = async()=>{
+        const washingtonRef = doc(db, "Users", auth.currentUser.uid);
+
+        await updateDoc(washingtonRef, {
+            firstname: firstname,
+            lastname: lastname,
+            birthdate: birthdate,
+            phone: phone
+         });
+     }  
+    const handleEdit = () =>{
+        setViewMode(false);
+    }  
+    const handleSignOut = () =>{
         signOut(auth).then(() => {
-            // Sign-out successful.
-            console.log("Done");
-            navigation.navigate('Home');
-        }).catch((error) => {
-            // An error happened.
-            const errorCode = error.code;
-            const errorMessage = error.message;
-            console.log(errorMessage)
-            console.warn(errorMessage)
-        });
+            console.log(' Sign-out successful')
+          }).catch((error) => {
+            console.log(error)
+          });
+
+        navigation.navigate("Home")
     }
+    {viewMode ? handleShowData():null};
+     return(
+         <View>
+            {viewMode? (
+            <View>
+            <ScrollView>               
+                       <StatusBar style="auto" />
+                        <View style={styles.header}></View>  
+                      <View style={{alignItems:'center'}}> 
+                      <TouchableOpacity>  
+                     <Image style={styles.avatar} source={require('../assets/profile_pic.jpg') }></Image>
+                     
+                     </TouchableOpacity>
+                  </View>
+                  
+                     
+               <View style={styles.inputMail}>
+                     <Text style={styles.mail}>{auth.currentUser.email}</Text>
+                     </View>
+                     
+                  <View style={styles.inputView1}>
+                 
+                         <Text style={styles.inputText1}>{firstname}</Text>
+         
+                        
+                     </View>
+                     <View style={styles.inputView2}>
+                     <Text style={styles.inputText1}>{lastname}</Text>
+                     </View>
+                     
+                     <View style={styles.inputView3}>
+                     <Text style={styles.inputText1}>{birthdate}</Text>
+                     </View>
+                     <View style={styles.inputView4}>
+                     <Text style={styles.inputText1}>{phone}</Text>
+                        
+                     </View>
+                     <TouchableOpacity style={styles.savebtn} onPress={handleEdit}>
+                         <Text style={styles.outText}>Edit</Text>
+                      </TouchableOpacity>   
+                     <TouchableOpacity style={styles.outbtn} onPress={handleSignOut}>
+                         <Text style={styles.outText}>Sign Out</Text>
+                         
+                     </TouchableOpacity>
+                </ScrollView>
+                </View>
+    
+            ) : (
+              <View>
+             <ScrollView>
 
-    return (
-        <SafeAreaView style={styles.container}>
-
-            <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-                <Text style={styles.text}>{auth.currentUser.email}</Text>
-                <Text style={styles.text}>You Are Welcome</Text>
-            </ImageBackground>
-
-            <View style={styles.container2}>
-                <TouchableOpacity style={styles.buttonContainer2} onPress={handleSignOut}>
-                    <Text style={styles.text2}>Sign Out</Text>
-                </TouchableOpacity>
+              <StatusBar style="auto" />
+               <View style={styles.header}></View>  
+             <View style={{alignItems:'center'}}> 
+             <TouchableOpacity>  
+            <Image style={styles.avatar} source={require('../assets/profile_pic.jpg') }></Image>
+            
+            </TouchableOpacity>
+         </View>
+         
+            
+      <View style={styles.inputMail}>
+            <Text style={styles.mail}>{auth.currentUser.email}</Text>
             </View>
-
-        </SafeAreaView>
-    );
-}
+            
+            <View style={styles.inputView1}>
+                <TextInput style={styles.inputText1}
+                    placeholder="FirstName"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={firstname => setFirst(firstname)}
+                />
+            </View>
+            <View style={styles.inputView2}>
+                <TextInput style={styles.inputText1}
+                    placeholder="LastName"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={lastname => setLast(lastname)}
+                />
+            </View>
+            
+            <View style={styles.inputView3}>
+                <TextInput style={styles.inputText1}
+                    placeholder="BirthDate"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={birthdate => setBirth(birthdate)}
+                />
+            </View>
+            <View style={styles.inputView4}>
+                <TextInput style={styles.inputText1}
+                    placeholder="PhoneNumber"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={phone => setPhone(phone)}
+                />
+            </View>
+            <TouchableOpacity style={styles.editbtn} onPress={handleSave}>
+                <Text style={styles.outText}>Save</Text>
+                
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.outbtn} onPress={handleSignOut}>
+                <Text style={styles.outText}>Sign Out</Text>
+                
+            </TouchableOpacity>
+       </ScrollView>
+       </View>
+        )}      
+         </View>
+     );
+};  
 
 const styles = StyleSheet.create({
-    container: {
-        flex: 2,
-        justifyContent: 'center',
-        flexDirection: 'column',
-        justifyContent: 'space-around',
+    // container: {
+    //   flex: 1,
+    //   backgroundColor: 'darkorchid',
+    //   alignItems: 'center',
+    //   justifyContent: 'center',
+    // },
+    header: {
+        backgroundColor: '#00BFFF',
+        height: 100,
     },
-    container2: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        justifyContent: 'space-around',
-        //margin: 10,
+    avatar: {
+        width: 130,
+        height: 130,
+        borderRadius: 63,
+        borderWidth: 4,
+        borderColor: 'white',
+        marginTop: -70,
+        marginBottom:30
+      },
+      inputView1: {
+        width: "80%",
+        backgroundColor: "orangered",
+        borderRadius: 10,
+        height: 50,
+        marginLeft: 20,
+        marginBottom: 20,
+        justifyContent: "center",
+        padding: 20
     },
-    image: {
-        flex: 3,
-        justifyContent: 'center',
-        marginBottom: 10,
+    inputView2: {
+        width: "80%",
+        backgroundColor: "orangered",
+        borderRadius: 10,
+        height: 50,
+        marginLeft: 20,
+        marginBottom: 20,
+        justifyContent: "center",
+        padding: 20
     },
-    inputView: {
-        //width: "70%",
+    inputView3: {
+        width: "80%",
+        backgroundColor: "orangered",
+        borderRadius: 10,
+        height: 50,
+        marginLeft: 20,
+        marginBottom: 20,
+        justifyContent: "center",
+        padding: 20
+    },
+    inputView4: {
+        width: "80%",
+        backgroundColor: "orangered",
+        borderRadius: 10,
+        height: 50,
+        marginLeft: 20,
+        marginBottom: 20,
+        justifyContent: "center",
+        padding: 20
+    },
+    inputMail: {
+        width: "80%",
+        backgroundColor: "darkorchid",
+        borderRadius: 10,
         height: 50,
         marginBottom: 20,
-        borderWidth: 2,
-        borderRadius: 30,
-        borderColor: 'dodgerblue',
-        backgroundColor: "#fff",
-    },
-    buttonContainer1: {
-        width: "40%",
-        padding: 4,
-        borderRadius: 30,
-        height: 40,
-        backgroundColor: "dodgerblue",
-    },
-    buttonContainer2: {
-        width: "40%",
-        padding: 4,
-        borderRadius: 30,
-        height: 40,
-        backgroundColor: "dodgerblue",
+        marginLeft: 20,
+        justifyContent: "center",
+        padding: 20
     },
     text: {
-        color: 'dodgerblue',
+        fontWeight: 'bold',
+        color: 'black',
         fontSize: 30,
-        lineHeight: 60,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        backgroundColor: 'white',
-        opacity: .75
+        padding: 20
     },
-    text2: {
-        color: 'white',
+    inputText1: {
+        fontWeight: 'bold',
         fontSize: 20,
-        lineHeight: 30,
+        height: 30,
+        color: "white"
+    },
+    mail:{
         fontWeight: 'bold',
-        textAlign: 'center',
-        borderRadius: 30,
-    },
-    input: {
+        fontSize: 20,
         height: 35,
-        margin: 5,
-        padding: 5,
-        color: "black",
+        color: "black"
     },
-    wrapperCustom: {
-        padding: 4,
-        borderRadius: 30,
-        marginTop: 30,
+    outbtn: {
+        width: "40%",
+        borderRadius: 20,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: -70,
+        marginLeft: 10,
+        marginBottom: 20,
+        backgroundColor: "orange",
     },
-    logBox: {
-        padding: 10,
-        //margin: 10,
-        borderWidth: StyleSheet.hairlineWidth,
-        borderColor: '#f0f0f0',
-        backgroundColor: '#f9f9f9',
-        borderRadius: 30,
+    editbtn: {
+        width: "40%",
+        borderRadius: 20,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 20,
+        marginLeft: 200,
+        marginBottom: 20,
+        backgroundColor: "orange",
     },
+    savebtn: {
+        width: "40%",
+        borderRadius: 20,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginTop: 20,
+        marginLeft: 200,
+        marginBottom: 20,
+        backgroundColor: "orange",
+    },
+    outText: {
+        fontWeight: 'bold',
+        fontSize: 20
+    }
 });

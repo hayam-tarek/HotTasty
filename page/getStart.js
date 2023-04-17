@@ -12,26 +12,21 @@ export default function GetStart({ navigation }) {
 
   const video = require("../assets/back3.mp4");
 
-  return (
-    <View style={styles.container}>
-      <StatusBar hidden />
-      <Video
-        source={video}
-        style={styles.video}
-        useNativeControls={false}
-        resizeMode="cover"
-        isLooping
-        shouldPlay
-        onPlaybackStatusUpdate={status => setStatus(() => status)}
-      />
-      
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
-        <Text style={styles.buttonText}>Get Started</Text>
-      </TouchableOpacity>
-    </View>
-    
-  );
-  
+    return (
+        <SafeAreaView style={styles.container}>
+
+            <ImageBackground source={image} resizeMode="cover" style={styles.image}>
+                <Text style={styles.text}>Hello, sky!</Text>
+            </ImageBackground>
+
+            <View style={styles.container2}>
+                <TouchableOpacity style={styles.buttonContainer2} onPress={() => navigation.navigate('Home')}>
+                    <Text style={styles.text2}>Get Started</Text>
+                </TouchableOpacity>
+            </View>
+
+        </SafeAreaView>
+    );
 }
 
 const styles = StyleSheet.create({
