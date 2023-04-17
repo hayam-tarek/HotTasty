@@ -7,6 +7,10 @@ import { updateDoc } from "firebase/firestore";
 import { auth, db } from '../middlewere/firebase';
 
 export default function Profile({ navigation }) {
+    React.useLayoutEffect(() => {
+        navigation.setOptions({ headerShown: false });
+    }, []);
+
     const [firstname, setFirst] = useState("");
     const [lastname, setLast] = useState("");
     const [birthdate, setBirth] = useState("");
@@ -167,7 +171,7 @@ export default function Profile({ navigation }) {
 const styles = StyleSheet.create({
     header: {
         backgroundColor: '#c16419',
-        height: 100,
+        height: 150,
     },
     avatar: {
         width: 130,
@@ -254,6 +258,6 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         //textAlign: 'center',
         //marginBottom:30,
-        padding:10,
+        padding: 10,
     },
 });

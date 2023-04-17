@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Video } from 'expo-av';
-import { StyleSheet, View, TouchableOpacity, Text, StatusBar, SafeAreaView } from 'react-native';
+import { StyleSheet, View, TouchableOpacity, Text, StatusBar,Image } from 'react-native';
 
 export default function GetStart({ navigation }) {
 
@@ -13,29 +13,35 @@ export default function GetStart({ navigation }) {
   const video = require("../assets/back3.mp4");
 
   return (
-    <SafeAreaView style={styles.container}>
+    <View style={styles.container}>
+      <StatusBar hidden />
+      <Video
+        source={video}
+        style={styles.video}
+        useNativeControls={false}
+        resizeMode="cover"
+        isLooping
+        shouldPlay
+        onPlaybackStatusUpdate={status => setStatus(() => status)}
+      />
+      <Image style={styles.image} source={require('../assets/text.png')}></Image>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
+        <Text style={styles.buttonText}>Get Started</Text>
+      </TouchableOpacity>
+    </View>
 
-      <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-        <Text style={styles.text}>Hello, sky!</Text>
-      </ImageBackground>
-
-      <View style={styles.container2}>
-        <TouchableOpacity style={styles.buttonContainer2} onPress={() => navigation.navigate('Home')}>
-          <Text style={styles.text2}>Get Started</Text>
-        </TouchableOpacity>
-      </View>
-
-    </SafeAreaView>
   );
+
 }
 
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: 'black',
     justifyContent: 'center',
-    alignItems: 'center',
-    justifyContent: 'flex-end',
+    flexDirection: 'column',
+    // //justifyContent: 'space-around',
+    backgroundColor: 'white',
+    alignItems: "center",
   },
   video: {
     position: 'absolute',
@@ -43,25 +49,35 @@ const styles = StyleSheet.create({
     left: 0,
     bottom: 0,
     right: 0,
-    opacity: 0.8,
+    opacity: 0.5,
   },
   button: {
+    width: "60%",
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: '#1b3b52',
-    backgroundColor: 'rgba(255, 255, 255, .4)',
-    position: 'absolute',
-    bottom: 30,
-    // height: 50,
-    width: '50%',
-    justifyContent: 'center',
-    alignItems: 'center',
-    //opacity: .95,
+    borderColor: '#c16419',
+    height: 50,
+    alignItems: "center",
+    justifyContent: "center",
+    // marginLeft: -190,
+    // marginTop: -60,
+    marginBottom: 15,
+    backgroundColor: 'rgba(255, 255, 255, .7)',
+    padding:10,
+    marginTop:300
   },
   buttonText: {
-    color: "#C49D43",
+    color: '#c16419',
     fontSize: 30,
+    lineHeight: 30,
     fontWeight: 'bold',
     textAlign: 'center',
+    
   },
+  image: {
+    width: 400,
+    height: 200,
+    marginTop:-100
+
+},
 });

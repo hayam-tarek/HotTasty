@@ -25,7 +25,7 @@ const index = () => {
           },
         }}
       >
-        {/* <Stack.Screen name="GetStart" component={GetStart} /> */}
+        <Stack.Screen name="GetStart" component={GetStart} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="SignIN" component={SignIN} />

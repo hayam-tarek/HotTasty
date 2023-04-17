@@ -21,10 +21,10 @@ export default function Home({ navigation }) {
         <View style={styles.content}>
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SignIN')}>
-              <Text style={styles.text2}>Sign in</Text>
+              <Text style={styles.text}>Sign in</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Register')}>
-              <Text style={styles.text2}>Register</Text>
+              <Text style={styles.text}>Register</Text>
             </TouchableOpacity>
           </View>
         </View>
@@ -68,16 +68,6 @@ const styles = StyleSheet.create({
     marginBottom: 5,
   },
   text: {
-    color: "#c16419",
-    fontSize: 45,
-    lineHeight: 60,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    backgroundColor: 'white',
-    opacity: .90,
-    marginBottom: 30
-  },
-  text2: {
     color: '#c16419',
     fontSize: 25,
     lineHeight: 30,
