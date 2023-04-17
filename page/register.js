@@ -1,203 +1,199 @@
-import React, { Component } from 'react'
-import { useState } from "react";
 import { StatusBar } from 'expo-status-bar';
-import {
-    StyleSheet, Text, View,
-    Button, TouchableOpacity, ImageBackground,
-    SafeAreaView, TextInput, Pressable, secureTextEntry
-} from 'react-native';
+import React, { useState } from 'react';
+import { StyleSheet, Text, View,SafeAreaView,ScrollView, Image, TextInput, Button, TouchableOpacity,KeyboardAvoidingView,Keyboard } from 'react-native';
 import { createUserWithEmailAndPassword } from "firebase/auth";
-import auth from '../firebase';
-import { useNavigation } from '@react-navigation/native';
+import {doc , setDoc} from 'firebase/firestore';
+import {auth , db} from '../middlewere/firebase';
 
-export default function Register({ }) {
 
-    const image = require("../assets/sky.png");
+export default function SignUp({navigation}) {
     const [email, setEmail] = useState("");
-    const [name, setName] = useState("");
     const [password, setPassword] = useState("");
-    //const [repassword, setrePassword] = useState("");
-
-    const navigation = useNavigation();
-
-    const handleRegister = () => {
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in 
-                const user = userCredential.user;
-                console.log("Done")
-                navigation.navigate('Profile');
-                // ...
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorMessage)
-                console.warn(errorMessage)
-                // ..
-            });
-    }
-
+    const [firstname, setFirst] = useState("");
+    const [lastname, setLast] = useState("");
+    const [birthdate, setBirth] = useState("");
+    const [phone, setPhone] = useState("");
+    // const [username, setUsername] = useState("");
+    const handleSignUp = () =>{
+    createUserWithEmailAndPassword(auth, email, password)
+    .then((userCredential) => {
+        // Signed Up 
+        console.log('Signed Up Successfully')
+        const user = userCredential.user;
+        handleSetData();
+        navigation.navigate("SignIN")
+      })
+      .catch((error) => {
+        const errorCode = error.code;
+        const errorMessage = error.message;
+        console.log(errorMessage)
+        // ..
+      });
+      const handleSetData = async() => {
+        await setDoc(doc(db, "Users", auth.currentUser.uid), {
+              firstname: firstname,
+              lastname: lastname,
+              birthdate: birthdate,
+              phone: phone
+          });
+    };
+}
     return (
-        <SafeAreaView style={styles.container}>
-
-            <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-                <Text style={styles.text}>Create an account</Text>
-            </ImageBackground>
-            <View style={styles.inputView}>
-                <TextInput
-                    placeholder="Name"
-                    value={name}
-                    onChangeText={(text) => setName(text)}
-                    keyboardType="default"
-                    style={styles.input}
+        <KeyboardAvoidingView style={styles.container} behavior='height'>
+            
+            <Text style={styles.text}>SignUp With Us</Text>
+            <StatusBar style="auto" />
+            <View style={styles.inputView1}>
+                <TextInput style={styles.inputText}
+                    placeholder="FirstName"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={firstname => setFirst(firstname)}
                 />
             </View>
+            <View style={styles.inputView2}>
+                <TextInput style={styles.inputText}
+                    placeholder="LastName"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={lastname => setLast(lastname)}
+                />
+            </View>
+            
+            <View style={styles.inputView3}>
+                <TextInput style={styles.inputText}
+                    placeholder="BirthDate"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={birthdate => setBirth(birthdate)}
+                />
+            </View>
+            <View style={styles.inputView4}>
+                <TextInput style={styles.inputText}
+                    placeholder="PhoneNumber"
+                    placeholderTextColor="#003f5c"
+                    onChangeText={phone => setPhone(phone)}
+                />
+            </View>
+        
             <View style={styles.inputView}>
-                <TextInput
+                <TextInput style={styles.inputText}
                     placeholder="Email"
-                    value={email}
-                    onChangeText={(text) => setEmail(text)}
-                    keyboardType="email-address"
-                    style={styles.input}
+                    placeholderTextColor="#003f5c"
+                    onChangeText={email => setEmail(email)}
                 />
             </View>
             <View style={styles.inputView}>
-                <TextInput
+                <TextInput style={styles.inputText}
                     placeholder="Password"
-                    value={password}
-                    onChangeText={(password) => setPassword(password)}
-                    keyboardType="default"
+                    placeholderTextColor="#003f5c"
                     secureTextEntry={true}
-                    style={styles.input}
-                //onSubmitEditing={() => alert("Done")}
+                    onChangeText={password => setPassword(password)}
                 />
             </View>
-            {/* <View style={styles.inputView}>
-                <TextInput
-                    placeholder="Confirm Password"
-                    value={repassword}
-                    onChangeText={(repassword) => setrePassword(repassword)}
-                    keyboardType="default"
-                    secureTextEntry={true}
-                    style={styles.input}
-                //onSubmitEditing={() => alert("Done")}
-                />
-            </View> */}
+        
+            <TouchableOpacity style={styles.SignUpbtn} onPress={handleSignUp}>
+                <Text style={styles.SignUpText}>SignUp</Text>
+                
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.Backbtn}  onPress={() => navigation.navigate("Home")}>
+                <Text style={styles.SignUpText}>Go Home</Text>
+            </TouchableOpacity>
+        </KeyboardAvoidingView>
 
-            <View style={styles.container3}>
-                <TouchableOpacity style={styles.buttonContainer1} onPress={handleRegister}>
-                    <Text style={styles.text2}>Register</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonContainer2} onPress={() => navigation.navigate('SignIN')}>
-                    <Text style={styles.text2}>Sign in</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonContainer3} onPress={() => navigation.navigate('Home')}>
-                    <Text style={styles.text2}>Back</Text>
-                </TouchableOpacity>
-            </View>
-
-        </SafeAreaView>
     );
 }
 
 const styles = StyleSheet.create({
     container: {
         flex: 1,
+        backgroundColor: 'indigo',
+        alignItems: 'center',
         justifyContent: 'center',
-        flexDirection: 'column',
-        justifyContent: 'space-around',
-    },
-    container2: {
-        flex: 1,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        justifyContent: 'space-around',
-        //margin: 10,
-    },
-    container3: {
-        marginTop: 25,
-        flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
-        flexDirection: 'column',
-        //justifyContent: 'space-around',
-    },
-    image: {
-        flex: 1,
-        justifyContent: 'center',
-        marginBottom: 10,
-    },
-    inputView: {
-        //width: "70%",
-        height: 50,
-        marginBottom: 4,
-        borderWidth: 2,
-        borderRadius: 30,
-        borderColor: 'dodgerblue',
-        backgroundColor: "#fff",
-    },
-    buttonContainer1: {
-        width: "80%",
-        padding: 4,
-        borderRadius: 30,
-        height: 40,
-        backgroundColor: "limegreen",
-        marginBottom: 5,
-
-    },
-    buttonContainer2: {
-        width: "80%",
-        padding: 4,
-        borderRadius: 30,
-        height: 40,
-        backgroundColor: "darkorange",
-        marginBottom: 5,
-
-    },
-    buttonContainer3: {
-        width: "80%",
-        padding: 4,
-        borderRadius: 30,
-        height: 40,
-        backgroundColor: "dodgerblue",
-        marginBottom: 5,
-
     },
     text: {
-        color: 'dodgerblue',
+        fontWeight: 'bold',
+        color: 'darkorange',
         fontSize: 30,
-        lineHeight: 60,
-        fontWeight: 'bold',
-        textAlign: 'center',
-        backgroundColor: 'white',
-        opacity: .75
+        padding: 30
     },
-    text2: {
-        color: 'white',
+    image: {
+        marginBottom: 10,
+        width: 200,
+        height: 200,
+    },
+    SignUpbtn: {
+        width: "35%",
+        borderRadius: 20,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginLeft: 190,
+        marginTop: 20,
+        marginBottom: 20,
+        backgroundColor: "orange",
+    },
+    Backbtn: {
+        width: "35%",
+        borderRadius: 20,
+        height: 50,
+        alignItems: "center",
+        justifyContent: "center",
+        marginLeft: -190,
+        marginTop: -70,
+        marginBottom: 20,
+        backgroundColor: "orange",
+    },   
+    inputView: {
+        width: "70%",
+        backgroundColor: "orangered",
+        borderRadius: 25,
+        height: 50,
+        marginBottom: 20,
+        justifyContent: "center",
+        padding: 20
+    },
+    inputView1: {
+        width: "70%",
+        backgroundColor: "orangered",
+        borderRadius: 25,
+        height: 50,
+        marginBottom: 20,
+        justifyContent: "center",
+        padding: 20
+    },
+    inputView2: {
+        width: "70%",
+        backgroundColor: "orangered",
+        borderRadius: 25,
+        height: 50,
+        marginBottom: 20,
+        justifyContent: "center",
+        padding: 20
+    },
+    inputView3: {
+        width: "70%",
+        backgroundColor: "orangered",
+        borderRadius: 25,
+        height: 50,
+        marginBottom: 20,
+        justifyContent: "center",
+        padding: 20
+    },
+    inputView4: {
+        width: "70%",
+        backgroundColor: "orangered",
+        borderRadius: 25,
+        height: 50,
+        marginBottom: 20,
+        justifyContent: "center",
+        padding: 20
+    },
+    inputText: {
+        fontWeight: 'bold',
         fontSize: 20,
-        lineHeight: 30,
+        height: 50,
+        color: "white"
+    },
+    SignUpText: {
         fontWeight: 'bold',
-        textAlign: 'center',
-        borderRadius: 30,
-    },
-    input: {
-        height: 35,
-        margin: 5,
-        padding: 5,
-        color: "black",
-    },
-    wrapperCustom: {
-        padding: 4,
-        borderRadius: 30,
-        marginTop: 30,
-    },
-    logBox: {
-        padding: 10,
-        //margin: 10,
-        borderWidth: StyleSheet.hairlineWidth,
-        borderColor: '#f0f0f0',
-        backgroundColor: '#f9f9f9',
-        borderRadius: 30,
-    },
+        fontSize: 20
+    }
 });

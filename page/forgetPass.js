@@ -6,7 +6,7 @@ import {
     SafeAreaView, TextInput, Pressable, secureTextEntry
 } from 'react-native';
 import { sendPasswordResetEmail } from "firebase/auth";
-import auth from '../firebase';
+import auth from '../middlewere/firebase';
 
 export default function ForgetPass({ navigation }) {
 
@@ -35,25 +35,26 @@ export default function ForgetPass({ navigation }) {
 
             <ImageBackground source={image} resizeMode="cover" style={styles.image}>
                 <Text style={styles.text}>Forget Password?</Text>
-            </ImageBackground>
-            <View style={styles.inputView}>
-                <TextInput
-                    placeholder="Email"
-                    value={email}
-                    onChangeText={(text) => setEmail(text)}
-                    keyboardType="email-address"
-                    style={styles.input}
-                />
-            </View>
+                <View style={styles.inputView}>
+                    <TextInput
+                        placeholder="Email"
+                        value={email}
+                        onChangeText={(text) => setEmail(text)}
+                        keyboardType="email-address"
+                        style={styles.input}
+                    />
+                </View>
 
-            <View style={styles.container3}>
-                <TouchableOpacity style={styles.buttonContainer1} onPress={handleForgetPass}>
-                    <Text style={styles.text2}>Send verification link</Text>
-                </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonContainer2} onPress={() => navigation.navigate('SignIN')}>
-                    <Text style={styles.text2}>Back to sign in</Text>
-                </TouchableOpacity>
-            </View>
+                <View style={styles.container3}>
+                    <TouchableOpacity style={styles.buttonContainer1} onPress={handleForgetPass}>
+                        <Text style={styles.text2}>Send verification link</Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity style={styles.buttonContainer2} onPress={() => navigation.navigate('SignIN')}>
+                        <Text style={styles.text2}>Back to sign in</Text>
+                    </TouchableOpacity>
+                </View>
+            </ImageBackground>
+
 
         </SafeAreaView>
     );
@@ -62,7 +63,7 @@ export default function ForgetPass({ navigation }) {
 const styles = StyleSheet.create({
     container: {
         flex: 1,
-        justifyContent: 'center',
+        //justifyContent: 'center',
         flexDirection: 'column',
         justifyContent: 'space-around',
     },
@@ -76,7 +77,7 @@ const styles = StyleSheet.create({
     container3: {
         flex: 1,
         alignItems: "center",
-        justifyContent: "center",
+        //justifyContent: "center",
         flexDirection: 'column',
         //justifyContent: 'space-around',
     },
@@ -93,6 +94,8 @@ const styles = StyleSheet.create({
         borderRadius: 30,
         borderColor: 'dodgerblue',
         backgroundColor: "#fff",
+        marginBottom: 10,
+        opacity: .75
     },
     buttonContainer1: {
         width: "80%",
@@ -119,7 +122,8 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
         backgroundColor: 'white',
-        opacity: .75
+        opacity: .75,
+        marginVertical:150
     },
     text2: {
         color: 'white',

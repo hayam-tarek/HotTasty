@@ -8,115 +8,77 @@ import {
 
 export default function Home({ navigation }) {
 
-  const image = require("../assets/sky.png");
-  const [timesPressed, setTimesPressed] = useState(0);
+  React.useLayoutEffect(() => {
+    navigation.setOptions({ headerShown: false });
+  }, []);
 
-  let textLog = '';
-  if (timesPressed > 1) {
-    textLog = timesPressed + 'x onPress';
-  } else if (timesPressed > 0) {
-    textLog = timesPressed + 'x onPress';
-  }
-
+  const image = require("../assets/back1.png");
 
   return (
     <SafeAreaView style={styles.container}>
 
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-        <Text style={styles.text}>HelloSky! </Text>
+        <View style={styles.content}>
+          <Text style={styles.text}>Join to Us </Text>
+          <View style={styles.buttonContainer}>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SignIN')}>
+              <Text style={styles.text2}>Sign in</Text>
+            </TouchableOpacity>
+            <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Register')}>
+              <Text style={styles.text2}>Register</Text>
+            </TouchableOpacity>
+          </View>
+        </View>
       </ImageBackground>
 
-      <View style={styles.container2}>
-        <TouchableOpacity style={styles.buttonContainer1} onPress={() => navigation.navigate('SignIN')}>
-          <Text style={styles.text2}>Sign in</Text>
-        </TouchableOpacity>
-        <TouchableOpacity style={styles.buttonContainer2} onPress={() => navigation.navigate('Register')}>
-          <Text style={styles.text2}>Register</Text>
-        </TouchableOpacity>
-      </View>
-
-      
     </SafeAreaView>
   );
 }
 
 const styles = StyleSheet.create({
   container: {
-    flex: 2,
-    justifyContent: 'center',
-    flexDirection: 'column',
-    justifyContent: 'space-around',
-  },
-  container2: {
     flex: 1,
-    flexDirection: 'row',
-    justifyContent: 'center',
-    justifyContent: 'space-around',
-    //margin: 10,
   },
   image: {
-    flex: 2.5,
+    flex: 1,
     justifyContent: 'center',
-    marginBottom: 10,
+    alignItems: 'center',
   },
-  inputView: {
-    //width: "70%",
-    height: 50,
-    marginBottom: 20,
+  content: {
+    flex: 1,
+    justifyContent: 'flex-end',
+    width: '100%',
+    marginBottom: 60,
+  },
+  buttonContainer: {
+    flexDirection: 'row',
+    justifyContent: 'space-around',
+  },
+  button: {
+    borderRadius: 10,
     borderWidth: 2,
-    borderRadius: 30,
-    borderColor: 'dodgerblue',
-    backgroundColor: "#fff",
-  },
-  buttonContainer1: {
-    width: "40%",
-    marginBottom:50,
-    padding: 4,
-    borderRadius: 30,
+    borderColor: '#1b3b52',
+    backgroundColor: 'white',
     height: 40,
-    backgroundColor: "dodgerblue",
-  },
-  buttonContainer2: {
-    width: "40%",
-    padding: 4,
-    borderRadius: 30,
-    height: 40,
-    backgroundColor: "dodgerblue",
+    width: '45%',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
   text: {
-    color: 'dodgerblue',
-    fontSize: 40,
+    color: "#C49D43",
+    fontSize: 45,
     lineHeight: 60,
     fontWeight: 'bold',
     textAlign: 'center',
-    backgroundColor: 'white',
-    opacity: .75
+    backgroundColor:'white',
+    opacity: .90,
+    marginBottom:30
   },
   text2: {
-    color: 'white',
-    fontSize: 20,
+    color: '#C49D43',
+    fontSize: 25,
     lineHeight: 30,
     fontWeight: 'bold',
     textAlign: 'center',
-    borderRadius: 30,
-  },
-  input: {
-    height: 35,
-    margin: 5,
-    padding: 5,
-    color: "black",
-  },
-  wrapperCustom: {
-    padding: 4,
-    borderRadius: 30,
-    marginTop: 30,
-  },
-  logBox: {
-    padding: 10,
-    //margin: 10,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: '#f0f0f0',
-    backgroundColor: '#f9f9f9',
-    borderRadius: 30,
   },
 });
