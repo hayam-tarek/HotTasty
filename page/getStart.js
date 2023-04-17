@@ -13,7 +13,7 @@ export default function GetStart({ navigation }) {
         <SafeAreaView style={styles.container}>
 
             <ImageBackground source={image} resizeMode="cover" style={styles.image}>
-                <Text style={styles.text}>Hello, sky!</Text>
+                <Text style={styles.text}>Hello, Sky!</Text>
             </ImageBackground>
 
             <View style={styles.container2}>
