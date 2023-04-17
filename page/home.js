@@ -12,14 +12,13 @@ export default function Home({ navigation }) {
     navigation.setOptions({ headerShown: false });
   }, []);
 
-  const image = require("../assets/back1.png");
+  const image = require("../assets/back2.png");
 
   return (
     <SafeAreaView style={styles.container}>
 
       <ImageBackground source={image} resizeMode="cover" style={styles.image}>
         <View style={styles.content}>
-          <Text style={styles.text}>Join to Us </Text>
           <View style={styles.buttonContainer}>
             <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('SignIN')}>
               <Text style={styles.text2}>Sign in</Text>
@@ -48,11 +47,14 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     width: '100%',
-    marginBottom: 60,
+    marginBottom: 275,
+
   },
   buttonContainer: {
-    flexDirection: 'row',
+    //flexDirection: 'row',
     justifyContent: 'space-around',
+    justifyContent: 'center',
+    alignItems: 'center',
   },
   button: {
     borderRadius: 10,
@@ -60,22 +62,23 @@ const styles = StyleSheet.create({
     borderColor: '#1b3b52',
     backgroundColor: 'white',
     height: 40,
-    width: '45%',
+    width: '35%',
     alignItems: 'center',
     justifyContent: 'center',
+    marginBottom: 5,
   },
   text: {
-    color: "#C49D43",
+    color: "#c16419",
     fontSize: 45,
     lineHeight: 60,
     fontWeight: 'bold',
     textAlign: 'center',
-    backgroundColor:'white',
+    backgroundColor: 'white',
     opacity: .90,
-    marginBottom:30
+    marginBottom: 30
   },
   text2: {
-    color: '#C49D43',
+    color: '#c16419',
     fontSize: 25,
     lineHeight: 30,
     fontWeight: 'bold',
