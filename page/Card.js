@@ -8,8 +8,8 @@ const Card = ({ navigation }) => {
 }, []);
 
   const items = [
-    {id: 1, title: "Hot drink", image: require('../assets/coffee.png')},
-    {id: 2, title: "Pizza", image: require('../assets/pizza.png')},
+    {id: 1, title: "Hot drink", image: require('../assets/hotd.png')},
+    {id: 2, title: "Pizza", image: require('../assets/piizza.png')},
     {id: 3, title: "baked cookies", image: require('../assets/bakedcookie.png')},
     {id: 4, title: "Fruit salat  ", image: require('../assets/fruit salad.png')},
     {id: 5, title: "juice", image: require('../assets/juice.png')},
@@ -52,10 +52,20 @@ const styles = StyleSheet.create({
     borderColor: '#ccc',
     borderRadius: 5,
     padding: 10,
+    shadowColor: '#000',
+    shadowOffset: {
+        width: 0,
+        height: 2,
+      },
+      shadowOpacity: 0.25,
+      shadowRadius: 4,
+      elevation: 5,
   },
   image: {
+    height: undefined,
+    aspectRatio: 1,
     width: '100%',
-    height: 150,
+   
     resizeMode: 'cover',
 
     marginBottom: 10,
