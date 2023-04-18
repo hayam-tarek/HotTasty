@@ -1,38 +1,85 @@
 import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, ScrollView, Image, TextInput, Button, TouchableOpacity, KeyboardAvoidingView, Keyboard } from 'react-native';
-import { createUserWithEmailAndPassword } from "firebase/auth";
+// import { createUserWithEmailAndPassword, getUserUId } from "../middlewere/firebase";
+import {  createUserWithEmailAndPassword,signInWithPopup } from "firebase/auth";
 import { doc, setDoc } from 'firebase/firestore';
-import { auth, db } from '../middlewere/firebase';
+import { auth, db ,provider } from '../middlewere/firebase';
+import Google from "../assets/logos_google-icon.png"; 
 
 
 export default function SignUp({ navigation }) {
+
+    const [value, setValue] = useState("");
+  const SingUpWithGoogle = () => {
+    signInWithPopup(auth, provider).then((data) => {
+      setValue(data.user.email);
+      localStorage.setItem("email", data.user.email);
+    });
+  };
+
+
     React.useLayoutEffect(() => {
         navigation.setOptions({ headerShown: false });
     }, []);
-
+    const [checked, setChecked] = useState("first");
     const [email, setEmail] = useState("");
-    const [password, setPassword] = useState("");
-    const [firstname, setFirst] = useState("");
-    const [lastname, setLast] = useState("");
-    const [birthdate, setBirth] = useState("");
-    const [phone, setPhone] = useState("");
+      const [password, setPassword] = useState("");
+      const [firstname, setFirst] = useState("");
+      const [lastname, setLast] = useState("");
+      const [birthdate, setBirth] = useState("");
+      const [phone, setPhone] = useState("");
+
+
+
     // const [username, setUsername] = useState("");
-    const handleSignUp = () => {
-        createUserWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed Up 
-                console.log('Signed Up Successfully')
-                const user = userCredential.user;
-                handleSetData();
-                navigation.navigate("SignIN")
-            })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorMessage)
-                // ..
+    
+  const checkDate = () => {
+    if (
+      email.length === 0 &&
+      password.length === 0 &&
+      firstname.length === 0 &&
+      lastname.length === 0 &&
+      phone.length === 0 
+      
+    ) {
+      alert("invalid information");
+    } else if (password.length < 8) {
+      alert("Password must be at least 8 characters");
+    } else {
+        createUserWithEmailAndPassword(email, password)
+        .then(() => {
+          console.log("registerd");
+          alert("Register Success!\nPlease Login");
+          navigation.navigate("SignIn");
+          getUserUId().then((id) => {
+            Addusers({
+              uid: id,
+              email: email,
+              password: password,
+              firstname: firstname,
+              lastname: lastname,
+              phone: phone,
+              birthdate: birthdate,
+              
             });
+          });
+        })
+        .catch((err) => {
+          {
+            if (
+              err.message.includes("already-in-use") &&
+              email !== "" &&
+              password !== ""
+            ) {
+              alert("The email is already exist");
+            } else if (err.message.includes("invalid-email") && email !== "") {
+              alert("The Email is incorrect");
+            }
+          }
+        });
+    }
+  };
         const handleSetData = async () => {
             await setDoc(doc(db, "Users", auth.currentUser.uid), {
                 firstname: firstname,
@@ -41,7 +88,7 @@ export default function SignUp({ navigation }) {
                 phone: phone
             });
         };
-    }
+    
     return (
         <KeyboardAvoidingView style={styles.container} behavior='height'>
 
@@ -94,13 +141,27 @@ export default function SignUp({ navigation }) {
                 />
             </View>
 
-            <TouchableOpacity style={styles.SignUpbtn} onPress={handleSignUp}>
+            <TouchableOpacity style={styles.SignUpbtn} onPress={checkDate}>
                 <Text style={styles.btnText}>Sign Up</Text>
 
             </TouchableOpacity>
             <TouchableOpacity style={styles.Backbtn} onPress={() => navigation.navigate("Home")}>
                 <Text style={styles.btnText}>Go Back</Text>
             </TouchableOpacity>
+            <View style={styles.SinginWithGoogleView}>
+        {value ? (
+          navigation.navigate("Home")
+        ) : (
+          <TouchableOpacity style={styles.touch} onPress={SingUpWithGoogle}>
+            <Image source={Google} style={styles.GoogleIcon} />
+            <View style={styles.GoogleTextView}>
+              <Text style={styles.GoogleText}>Sing up with Google</Text>
+            </View>
+          </TouchableOpacity>
+        )}
+      </View>
+
+
         </KeyboardAvoidingView>
 
     );
@@ -173,5 +234,35 @@ const styles = StyleSheet.create({
         lineHeight: 30,
         fontWeight: 'bold',
         textAlign: 'center',
-    }
+    },
+    touch: {
+        borderColor: "#0B3B63",
+        borderWidth: 1,
+        width: 328,
+        height: 48,
+        borderRadius: 5,
+      },
+      GoogleIcon: {
+        marginTop: 15,
+        marginLeft: 78,
+        width: 16,
+        height: 16,
+      },
+      GoogleText: {
+        fontSize: 14,
+        fontWeight: "500",
+        fontFamily: "Montserrat",
+        color: '#1b3b52',
+    
+       
+        textAlign: "center",
+      },
+      GoogleTextView: {
+        marginTop: -15,
+        borderColor: '#c16419',
+      },
+      SinginWithGoogleView: {
+        marginTop: 30,
+        backgroundColor: 'rgba(193, 100, 25, 0.3)',
+      },
 });

@@ -6,11 +6,21 @@ import {
     Button, TouchableOpacity, Image,
     SafeAreaView, TextInput, Pressable, secureTextEntry
 } from 'react-native';
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from '../middlewere/firebase';
+import { signInWithEmailAndPassword ,signInWithPopup} from "firebase/auth";
+import { auth, db , provider } from '../middlewere/firebase';
 import { useNavigation } from '@react-navigation/native';
+import Google from "../assets/logos_google-icon.png"; 
 
 export default function SignIN({ }) {
+
+    const [value, setValue] = useState("");
+    const SingInWithGoogle = () => {
+      signInWithPopup(auth, provider).then((data) => {
+        setValue(data.user.email);
+        localStorage.setItem("email", data.user.email);
+      });
+    };
+
 
     React.useLayoutEffect(() => {
 
@@ -24,22 +34,59 @@ export default function SignIN({ }) {
 
     const navigation = useNavigation();
 
-    const handleSignIn = () => {
-        signInWithEmailAndPassword(auth, email, password)
-            .then((userCredential) => {
-                // Signed in 
-                console.log("Done")
-                navigation.navigate('Profile');
-                const user = userCredential.user;
-                // ...
+
+    const checkDate = () => {
+        if (!email.includes("@") || email.length === 0 || password.length < 8)
+          alert("invalid information");
+        else
+          signInWithEmailAndPassword(email, password)
+            .then(() => {
+              navigation.navigate("TabFun");
+              alert("Login Success!");
             })
-            .catch((error) => {
-                const errorCode = error.code;
-                const errorMessage = error.message;
-                console.log(errorMessage)
-                console.warn(errorMessage)
+            .catch((e) => {
+              if (
+                e.message.includes("invalid-email") &&
+                email === "" &&
+                password === ""
+              ) {
+                alert("Please enter your email and password");
+              } else if (e.message.includes("invalid-email") && email === "") {
+                alert("Please enter your email");
+              } else if (e.message.includes("invalid-email") && email !== "") {
+                alert("The Email is incorrect");
+              } else if (e.message.includes("internal-error") && password === "") {
+                alert("Please enter your password");
+              } else if (e.message.includes("wrong-password") && password !== "") {
+                alert("The password is incorrect");
+              } else if (
+                e.message.includes("user-not-found") &&
+                email !== "" &&
+                password !== ""
+              ) {
+                alert("The user is not exist");
+              }
             });
-    }
+      };
+
+
+
+    // const handleSignIn = () => {
+    //     signInWithEmailAndPassword(auth, email, password)
+    //         .then((userCredential) => {
+    //             // Signed in 
+    //             console.log("Done")
+    //             navigation.navigate('Profile');
+    //             const user = userCredential.user;
+    //             // ...
+    //         })
+    //         .catch((error) => {
+    //             const errorCode = error.code;
+    //             const errorMessage = error.message;
+    //             console.log(errorMessage)
+    //             console.warn(errorMessage)
+    //         });
+    // }
 
     return (
         <SafeAreaView style={styles.container}>
@@ -62,7 +109,7 @@ export default function SignIN({ }) {
                     />
                 </View>
             </View>
-            <TouchableOpacity style={styles.buttonContainer} onPress={handleSignIn}>
+            <TouchableOpacity style={styles.buttonContainer}  onPress={checkDate}>
                 <Text style={styles.btnText}>Sign in</Text>
             </TouchableOpacity>
             <TouchableOpacity style={styles.buttonforgot} onPress={() => navigation.navigate('ForgetPass')}>
@@ -71,6 +118,19 @@ export default function SignIN({ }) {
             <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('Home')}>
                 <Text style={styles.btnText}>Back</Text>
             </TouchableOpacity>
+
+            <View style={styles.SinginWithGoogleView}>
+        {value ? (
+          navigation.navigate("Home")
+        ) : (
+          <TouchableOpacity style={styles.touch} onPress={SingInWithGoogle}>
+            <Image source={Google} style={styles.GoogleIcon} />
+            <View style={styles.GoogleTextView}>
+              <Text style={styles.GoogleText}>Sing in with Google</Text>
+            </View>
+          </TouchableOpacity>
+        )}
+      </View>
 
         </SafeAreaView>
     );
@@ -156,4 +216,34 @@ const styles = StyleSheet.create({
         fontWeight: 'bold',
         textAlign: 'center',
     },
+    touch: {
+        borderColor: "#0B3B63",
+        borderWidth: 1,
+        width: 328,
+        height: 48,
+        borderRadius: 5,
+      },
+      GoogleIcon: {
+        marginTop: 15,
+        marginLeft: 78,
+        width: 16,
+        height: 16,
+      },
+      GoogleText: {
+        fontSize: 14,
+        fontWeight: "500",
+        fontFamily: "Montserrat",
+        color: '#1b3b52',
+    
+       
+        textAlign: "center",
+      },
+      GoogleTextView: {
+        marginTop: -15,
+        borderColor: '#c16419',
+      },
+      SinginWithGoogleView: {
+        marginTop: 30,
+        backgroundColor: 'rgba(193, 100, 25, 0.3)',
+      },
 });
