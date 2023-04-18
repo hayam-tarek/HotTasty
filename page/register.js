@@ -2,15 +2,16 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState } from 'react';
 import { StyleSheet, Text, View, SafeAreaView, ScrollView, Image, TextInput, Button, TouchableOpacity, KeyboardAvoidingView, Keyboard } from 'react-native';
 // import { createUserWithEmailAndPassword, getUserUId } from "../middlewere/firebase";
-import {  createUserWithEmailAndPassword,signInWithPopup } from "firebase/auth";
-import { doc, setDoc } from 'firebase/firestore';
-import { auth, db ,provider } from '../middlewere/firebase';
+import { register, getUserUId } from "../middlewere/firebase/auth";
+import { auth,db, provider } from "../middlewere/Config";
+import { Addusers } from "../middlewere/firebase/users";
+import { signInWithPopup } from "firebase/auth";
 import Google from "../assets/logos_google-icon.png"; 
 
 
 export default function SignUp({ navigation }) {
 
-    const [value, setValue] = useState("");
+  const [value, setValue] = useState("");
   const SingUpWithGoogle = () => {
     signInWithPopup(auth, provider).then((data) => {
       setValue(data.user.email);
@@ -18,47 +19,43 @@ export default function SignUp({ navigation }) {
     });
   };
 
-
-    React.useLayoutEffect(() => {
-        navigation.setOptions({ headerShown: false });
-    }, []);
-    const [checked, setChecked] = useState("first");
-    const [email, setEmail] = useState("");
-      const [password, setPassword] = useState("");
-      const [firstname, setFirst] = useState("");
-      const [lastname, setLast] = useState("");
-      const [birthdate, setBirth] = useState("");
-      const [phone, setPhone] = useState("");
+  // const [checked, setChecked] = useState("first");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [fName, setFName] = useState("");
+  const [lName, setLName] = useState("");
+  const [phone, setPhone] = useState("");
+  const [birthdate, setbirthdate] = useState("");
+  
 
 
-
-    // const [username, setUsername] = useState("");
-    
   const checkDate = () => {
     if (
       email.length === 0 &&
       password.length === 0 &&
-      firstname.length === 0 &&
-      lastname.length === 0 &&
-      phone.length === 0 
+      fName.length === 0 &&
+      lName.length === 0 &&
+      phone.length === 0 &&
+      birthdate.length===0
+      
       
     ) {
       alert("invalid information");
     } else if (password.length < 8) {
       alert("Password must be at least 8 characters");
     } else {
-        createUserWithEmailAndPassword(email, password)
+      register(email, password)
         .then(() => {
           console.log("registerd");
           alert("Register Success!\nPlease Login");
-          navigation.navigate("SignIn");
+          navigation.navigate("SignIN");
           getUserUId().then((id) => {
             Addusers({
               uid: id,
               email: email,
               password: password,
-              firstname: firstname,
-              lastname: lastname,
+              fName: fName,
+              lName: lName,
               phone: phone,
               birthdate: birthdate,
               
@@ -80,6 +77,82 @@ export default function SignUp({ navigation }) {
         });
     }
   };
+
+
+
+
+  //   const [value, setValue] = useState("");
+  // const SingUpWithGoogle = () => {
+  //   signInWithPopup(auth, provider).then((data) => {
+  //     setValue(data.user.email);
+  //     localStorage.setItem("email", data.user.email);
+  //   });
+  // };
+
+
+    React.useLayoutEffect(() => {
+        navigation.setOptions({ headerShown: false });
+    }, []);
+
+
+  //   const [checked, setChecked] = useState("first");
+  //   const [email, setEmail] = useState("");
+  //     const [password, setPassword] = useState("");
+  //     const [firstname, setFirst] = useState("");
+  //     const [lastname, setLast] = useState("");
+  //     const [birthdate, setBirth] = useState("");
+  //     const [phone, setPhone] = useState("");
+
+
+
+  //   // const [username, setUsername] = useState("");
+    
+  // const checkDate = () => {
+  //   if (
+  //     email.length === 0 &&
+  //     password.length === 0 &&
+  //     firstname.length === 0 &&
+  //     lastname.length === 0 &&
+  //     phone.length === 0 
+      
+  //   ) {
+  //     alert("invalid information");
+  //   } else if (password.length < 8) {
+  //     alert("Password must be at least 8 characters");
+  //   } else {
+  //       createUserWithEmailAndPassword(email, password)
+  //       .then(() => {
+  //         console.log("registerd");
+  //         alert("Register Success!\nPlease Login");
+  //         navigation.navigate("SignIn");
+  //         getUserUId().then((id) => {
+  //           Addusers({
+  //             uid: id,
+  //             email: email,
+  //             password: password,
+  //             firstname: firstname,
+  //             lastname: lastname,
+  //             phone: phone,
+  //             birthdate: birthdate,
+              
+  //           });
+  //         });
+  //       })
+  //       .catch((err) => {
+  //         {
+  //           if (
+  //             err.message.includes("already-in-use") &&
+  //             email !== "" &&
+  //             password !== ""
+  //           ) {
+  //             alert("The email is already exist");
+  //           } else if (err.message.includes("invalid-email") && email !== "") {
+  //             alert("The Email is incorrect");
+  //           }
+  //         }
+  //       });
+  //   }
+  // };
         const handleSetData = async () => {
             await setDoc(doc(db, "Users", auth.currentUser.uid), {
                 firstname: firstname,
@@ -99,14 +172,14 @@ export default function SignUp({ navigation }) {
                 <TextInput style={styles.inputText}
                     placeholder="First Name"
                     //placeholderTextColor="#003f5c"
-                    onChangeText={firstname => setFirst(firstname)}
+                    onChangeText={fName => setFName(fName)}
                 />
             </View>
             <View style={styles.inputView}>
                 <TextInput style={styles.inputText}
                     placeholder="Last Name"
                     //placeholderTextColor="#003f5c"
-                    onChangeText={lastname => setLast(lastname)}
+                    onChangeText={LName => setLName(LName)}
                 />
             </View>
 
@@ -114,7 +187,7 @@ export default function SignUp({ navigation }) {
                 <TextInput style={styles.inputText}
                     placeholder="Birth Date"
                     //placeholderTextColor="#003f5c"
-                    onChangeText={birthdate => setBirth(birthdate)}
+                    onChangeText={birthdate => setbirthdate(birthdate)}
                 />
             </View>
             <View style={styles.inputView}>
@@ -150,7 +223,7 @@ export default function SignUp({ navigation }) {
             </TouchableOpacity>
             <View style={styles.SinginWithGoogleView}>
         {value ? (
-          navigation.navigate("Home")
+          navigation.navigate("SignIN")
         ) : (
           <TouchableOpacity style={styles.touch} onPress={SingUpWithGoogle}>
             <Image source={Google} style={styles.GoogleIcon} />

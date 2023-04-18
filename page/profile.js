@@ -4,7 +4,7 @@ import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, ScrollView,
 import { signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { updateDoc } from "firebase/firestore";
-import { auth, db } from '../middlewere/firebase';
+import { auth, db } from '../middlewere/Config';
 
 export default function Profile({ navigation }) {
     React.useLayoutEffect(() => {
