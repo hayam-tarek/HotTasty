@@ -7,7 +7,7 @@ import SignIN from '../page/signIN';
 import Profile from '../page/profile';
 import GetStart from '../page/getStart';
 import ForgetPass from '../page/forgetPass';
-
+import Card from '../page/Card';
 const Stack = createNativeStackNavigator();
 
 const index = () => {
@@ -29,6 +29,7 @@ const index = () => {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="SignIN" component={SignIN} />
+        <Stack.Screen name="Card" component={Card} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="ForgetPass" component={ForgetPass} />
 

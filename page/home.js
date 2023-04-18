@@ -36,12 +36,16 @@ export default function Home({ navigation }) {
 
 const styles = StyleSheet.create({
   container: {
+    backgroundColor: 'black',
     flex: 1,
   },
   image: {
     flex: 1,
+    backgroundColor: 'black',
     justifyContent: 'center',
     alignItems: 'center',
+    
+    opacity: 0.7,
   },
   content: {
     flex: 1,

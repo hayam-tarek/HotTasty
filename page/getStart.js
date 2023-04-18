@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     flexDirection: 'column',
     // //justifyContent: 'space-around',
-    backgroundColor: 'white',
+    backgroundColor: 'black',
     alignItems: "center",
   },
   video: {
@@ -62,7 +62,8 @@ const styles = StyleSheet.create({
     // marginLeft: -190,
     // marginTop: -60,
     marginBottom: 15,
-    backgroundColor: 'rgba(255, 255, 255, .7)',
+    backgroundColor: 'rgba(0, 0, 0, .5)',
+
     padding:10,
     marginTop:300
   },

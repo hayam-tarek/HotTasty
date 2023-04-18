@@ -41,7 +41,7 @@ export default function SignIN({ }) {
         else
           signInWithEmailAndPassword(email, password)
             .then(() => {
-              navigation.navigate("TabFun");
+              navigation.navigate("Card");
               alert("Login Success!");
             })
             .catch((e) => {
@@ -89,6 +89,7 @@ export default function SignIN({ }) {
     // }
 
     return (
+      
         <SafeAreaView style={styles.container}>
 
             <Image style={styles.image} source={require('../assets/text.png')}></Image>
@@ -109,6 +110,7 @@ export default function SignIN({ }) {
                     />
                 </View>
             </View>
+            
             <TouchableOpacity style={styles.buttonContainer}  onPress={checkDate}>
                 <Text style={styles.btnText}>Sign in</Text>
             </TouchableOpacity>
@@ -121,7 +123,7 @@ export default function SignIN({ }) {
 
             <View style={styles.SinginWithGoogleView}>
         {value ? (
-          navigation.navigate("Home")
+          navigation.navigate("Card")
         ) : (
           <TouchableOpacity style={styles.touch} onPress={SingInWithGoogle}>
             <Image source={Google} style={styles.GoogleIcon} />
