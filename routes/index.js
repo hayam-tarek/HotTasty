@@ -8,13 +8,16 @@ import Profile from '../page/profile';
 import GetStart from '../page/getStart';
 import ForgetPass from '../page/forgetPass';
 import Card from '../page/Card';
+import Logo from '../page/Logo';
 const Stack = createNativeStackNavigator();
 
 const index = () => {
 
   return (
     <NavigationContainer>
+
       <Stack.Navigator
+        initialRouteName="Logo"
         screenOptions={{
           headerStyle: {
             backgroundColor: 'white',
@@ -26,6 +29,8 @@ const index = () => {
         }}
       >
         <Stack.Screen name="GetStart" component={GetStart} />
+        <Stack.Screen name="Logo" component={Logo}
+          options={{ headerShown: false }} />
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="SignIN" component={SignIN} />
