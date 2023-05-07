@@ -343,6 +343,7 @@ const styles = StyleSheet.create({
   },
   SinginWithGoogleView: {
     marginTop: 30,
+    borderRadius:15,
     backgroundColor: '#042628',
   },
   accountcreate: {

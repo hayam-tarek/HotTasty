@@ -44,7 +44,12 @@ export default function SignUp({ navigation }) {
       alert("invalid information");
     } else if (password.length < 8) {
       alert("Password must be at least 8 characters");
-    } else {
+
+    } else if (fName.length === 0) {
+      alert("Please enter your first name");
+    } else if (lName.length === 0) {
+      alert("Please enter your last name");
+    }else {
       register(email, password)
         .then(() => {
           console.log("registerd");
@@ -101,8 +106,10 @@ export default function SignUp({ navigation }) {
 
   return (
     <KeyboardAvoidingView style={styles.container} behavior='height'>
-      <ScrollView contentContainerStyle={{ alignItems: "center" }}>
+      <ScrollView>
+         <View   style={{alignItems:"center"}}>
 
+         
         <View style={styles.titleView}>
           <View style={styles.frameView}>
             <TouchableOpacity
@@ -117,6 +124,7 @@ export default function SignUp({ navigation }) {
             <Text style={styles.title}>Sign Up</Text>
           </View>
         </View>
+
 
         <View style={styles.emailView}>
           <Text style={styles.inpText}>First Name</Text>
@@ -210,7 +218,9 @@ export default function SignUp({ navigation }) {
               </View>
             </TouchableOpacity>
           )}
+          </View>
         </View>
+
 
       </ScrollView>
     </KeyboardAvoidingView>
@@ -222,7 +232,7 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     backgroundColor: 'white',
-    alignItems: 'center',
+    //alignItems: 'center',
     justifyContent: 'center',
   },
   frameView: {
@@ -380,6 +390,7 @@ const styles = StyleSheet.create({
   },
   SinginWithGoogleView: {
     marginTop: 30,
+    borderRadius:15,
     backgroundColor: '#042628',
     flexDirection: 'row',
   },
