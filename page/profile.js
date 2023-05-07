@@ -1,15 +1,18 @@
 import { StatusBar } from 'expo-status-bar';
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, ScrollView, Pressable } from 'react-native';
 import { signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { updateDoc } from "firebase/firestore";
 import { auth, db } from '../middlewere/Config';
+import { getUserUId } from "../middlewere/firebase/auth";
+import { getUserById, edituser, subscribe } from "../middlewere/firebase/users";
 
 export default function Profile({ navigation }) {
     React.useLayoutEffect(() => {
         navigation.setOptions({ headerShown: false });
     }, []);
+    const [user, setUser] = useState([]);
 
     const [firstname, setFirst] = useState("");
     const [lastname, setLast] = useState("");
@@ -18,20 +21,30 @@ export default function Profile({ navigation }) {
     const [viewMode, setViewMode] = useState(true);
 
     const handleShowData = async () => {
-        const docRef = doc(db, "Users", auth.currentUser.uid);
-        const docSnap = await getDoc(docRef);
+        // const docRef = doc(db, "users", auth.currentUser.uid);
+        // const docSnap = await getDoc(docRef);
 
-        if (docSnap.exists()) {
-            console.log("Document data:", docSnap.data());
-            const data = docSnap.data();
-            setFirst(data.firstname);
-            setLast(data.lastname);
-            setBirth(data.birthdate);
-            setPhone(data.phone);
-        } else {
-            // docSnap.data() will be undefined in this case
-            console.log("No such document!");
-        }
+        // if (docSnap.exists()) {
+        //     console.log("Document data:", docSnap.data());
+        //     const data = docSnap.data();
+        //     setFirst(data.fName);
+        //     setLast(data.lName);
+        //     setBirth(data.birthdate);
+        //     setPhone(data.phone);
+        // } else {
+        //     // docSnap.data() will be undefined in this case
+        //     console.log("No such document!");
+        // }
+
+        getUserUId().then((id) => {
+            getUserById(id).then((user) => {
+                setUser(user[0]);
+                setFirst(user[0].fName);
+                setLast(user[0].lName);
+                setPhone(user[0].phone);
+                setBirth(user[0].birthdate);
+            });
+        });
     }
 
     const handleSave = () => {
@@ -39,14 +52,25 @@ export default function Profile({ navigation }) {
         handleUpdate();
     }
     const handleUpdate = async () => {
-        const washingtonRef = doc(db, "Users", auth.currentUser.uid);
+        // const washingtonRef = doc(db, "users", auth.currentUser.uid);
 
-        await updateDoc(washingtonRef, {
-            firstname: firstname,
-            lastname: lastname,
+        // await updateDoc(washingtonRef, {
+        //     fName: firstname,
+        //     lName: lastname,
+        //     birthdate: birthdate,
+        //     phone: phone
+        // });
+        edituser({
+            ...user,
+            fName: firstname,
+            lName: lastname,
             birthdate: birthdate,
-            phone: phone
-        });
+            phone: phone,
+        })
+            .then(() => {
+                alert("Your information updated");
+            })
+            .catch((e) => console.log(e));
     }
     const handleEdit = () => {
         setViewMode(false);

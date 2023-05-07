@@ -6,7 +6,8 @@ import {
     SafeAreaView, TextInput, Pressable, secureTextEntry
 } from 'react-native';
 import { sendPasswordResetEmail } from "firebase/auth";
-import auth from '../middlewere/Config';
+import { auth } from '../middlewere/Config';
+import Frame from "../assets/back.png";
 
 export default function ForgetPass({ navigation }) {
 
@@ -37,24 +38,49 @@ export default function ForgetPass({ navigation }) {
 
     return (
         <SafeAreaView style={styles.container}>
-            <Image style={styles.image} source={require('../assets/text.png')}></Image>
-            <Text style={styles.text}>Enter your email to reset your password!</Text>
-            <View style={styles.inputView}>
-                <TextInput
-                    placeholder="Email"
-                    value={email}
-                    onChangeText={(text) => setEmail(text)}
-                    keyboardType="email-address"
-                    style={styles.inputText}
-                />
+
+            <View style={styles.titleView}>
+                <View style={styles.frameView}>
+                    <TouchableOpacity
+                        onPress={() => {
+                            navigation.navigate("SignIN");
+                        }}
+                    >
+                        <Image source={Frame} style={styles.frame} />
+                    </TouchableOpacity>
+                </View>
+                <View style={styles.wordView}>
+                    <Text style={styles.title}>Forgot Password</Text>
+                </View>
             </View>
 
-                <TouchableOpacity style={styles.buttonforgot} onPress={handleForgetPass}>
-                    <Text style={styles.btnTextforgot}>Send verification link</Text>
+
+            <Text style={styles.text}>Enter your email to reset your password!</Text>
+
+            <View style={styles.emailView}>
+                <Text style={styles.inpText}>E-mail Adderss</Text>
+                <View style={styles.inpView}>
+                    <TextInput
+                        style={styles.input}
+                        value={email}
+                        onChangeText={(text) => setEmail(text)}
+                        keyboardType="email-address"
+                    />
+                </View>
+            </View>
+
+
+
+
+            <View style={styles.buttonview}>
+                <TouchableOpacity style={styles.button} onPress={handleForgetPass}>
+                    <View style={styles.button2}>
+                        <Text style={styles.button1}> Send verification link</Text>
+                    </View>
                 </TouchableOpacity>
-                <TouchableOpacity style={styles.buttonContainer} onPress={() => navigation.navigate('SignIN')}>
-                    <Text style={styles.btnText}>Back to sign in</Text>
-                </TouchableOpacity>
+            </View>
+
+
 
         </SafeAreaView>
     );
@@ -69,11 +95,76 @@ const styles = StyleSheet.create({
         alignItems: "center",
         //justifyContent: 'space-around',
     },
+    frameView: {
+
+        marginLeft: 15,
+        marginRight: 80,
+
+    },
+    frame: {
+        width: 33,
+        height: 30,
+    },
+    titleView: {
+        flexDirection: 'row',
+        paddingBottom: 50,
+        marginRight: 120,
+
+    },
+    title: {
+
+        color: "#042628",
+        fontWeight: 1000,
+        fontSize: 23,
+    },
+    emailView: {
+        marginTop: 32,
+    },
+    inpText: {
+        color: "#042628",
+        marginBottom: 5,
+
+        fontWeight: 500,
+        fontSize: 14,
+
+    },
+    input: {
+        backgroundColor: "#ffff",
+        borderColor: "#042628",
+        borderWidth: 1,
+        width: 328,
+        height: 48,
+        borderRadius: 15,
+        paddingLeft: 5,
+    },
+    buttonview: {
+        marginTop: 30,
+    },
+    button: {
+        borderRadius: 15,
+        width: 328,
+        height: 48,
+        backgroundColor: "#042628",
+        color: "#ffff",
+
+
+    },
+    button1: {
+        textAlign: 'center',
+
+        fontWeight: 500,
+        fontSize: 18,
+        color: "#ffff",
+    },
+    button2: {
+        alignItems: "center",
+        marginTop: 15,
+    },
     image: {
         width: 400,
         height: 100,
     },
-    
+
     inputView: {
         width: "80%",
         backgroundColor: "white",
@@ -84,7 +175,7 @@ const styles = StyleSheet.create({
         marginBottom: 10,
         justifyContent: "center",
         padding: 20,
-        marginBottom:70
+        marginBottom: 70
     },
     inView: {
         marginVertical: 50,
@@ -141,7 +232,7 @@ const styles = StyleSheet.create({
         lineHeight: 30,
         fontWeight: 'bold',
         textAlign: 'center',
-        marginBottom:30,
+        marginBottom: 30,
     },
     btnTextforgot: {
         color: '#1b3b52',

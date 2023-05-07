@@ -9,6 +9,10 @@ import GetStart from '../page/getStart';
 import ForgetPass from '../page/forgetPass';
 import Card from '../page/Card';
 import Logo from '../page/Logo';
+// import Signin from '../page/signIN';
+// import SignUp from '../page/register';
+// import Forget from '../page/Forget';
+// import GoogleInfo from '../page/GoogleInfo';
 const Stack = createNativeStackNavigator();
 
 const index = () => {
@@ -37,6 +41,10 @@ const index = () => {
         <Stack.Screen name="Card" component={Card} />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="ForgetPass" component={ForgetPass} />
+        {/* <Stack.Screen name="Signin" component={Signin} />
+        <Stack.Screen name="SignUp" component={SignUp} />
+        <Stack.Screen name="Forget" component={Forget} />
+        <Stack.Screen name="GoogleInfo" component={GoogleInfo} /> */}
 
       </Stack.Navigator>
     </NavigationContainer>

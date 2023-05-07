@@ -27,13 +27,13 @@ async function login(email, password) {
 
 async function SignOut() {
   return signOut(auth)
-    .then(() => {})
-    .catch((error) => {});
+    .then(() => { })
+    .catch((error) => { });
 }
 
 async function getUserUId() {
   if (auth.currentUser != null) {
-    console.log("here", auth.currentUser.uid);
+    // console.log("here", auth.currentUser.uid);
     return auth.currentUser.uid;
   } else {
     return null;
