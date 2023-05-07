@@ -154,6 +154,7 @@ export default function SignUp({ navigation }) {
           <View style={styles.inpView}>
             <TextInput
               style={styles.input}
+              keyboardType='number-pad'
               onChangeText={birthdate => setbirthdate(birthdate)}
             />
           </View>
@@ -168,6 +169,7 @@ export default function SignUp({ navigation }) {
           <View style={styles.inpView}>
             <TextInput
               style={styles.input}
+              keyboardType='phone-pad'
               onChangeText={phone => setPhone(phone)}
             />
           </View>
@@ -179,6 +181,7 @@ export default function SignUp({ navigation }) {
           <View style={styles.inpView}>
             <TextInput
               style={styles.input}
+              keyboardType='email-address'
               onChangeText={email => setEmail(email)}
             />
           </View>
@@ -192,6 +195,7 @@ export default function SignUp({ navigation }) {
           <View style={styles.inpView}>
             <TextInput
               style={styles.input}
+              secureTextEntry={true}
               onChangeText={password => setPassword(password)}
             />
           </View>

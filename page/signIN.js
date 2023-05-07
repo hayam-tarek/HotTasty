@@ -102,6 +102,7 @@ export default function SignIN({ }) {
         <View style={styles.inpView}>
           <TextInput
             style={styles.input}
+            keyboardType='email-address'
             onChangeText={email => setEmail(email)}
           />
         </View>
