@@ -5,21 +5,48 @@ import { signOut } from "firebase/auth";
 import { doc, getDoc } from "firebase/firestore";
 import { updateDoc } from "firebase/firestore";
 import { auth, db } from '../middlewere/Config';
+import * as ImagePicker from 'expo-image-picker';
+import { storage  } from '../middlewere/Config';
+import { ref , getDownloadURL , uploadBytes } from "firebase/storage";
 import { getUserUId } from "../middlewere/firebase/auth";
 import { getUserById, edituser, subscribe } from "../middlewere/firebase/users";
+import { updateDoc } from "firebase/firestore";
+import { updateProfile } from "firebase/auth";
+import profile from '../assets/profile_pic.jpg'
+
 
 export default function Profile({ navigation }) {
     React.useLayoutEffect(() => {
         navigation.setOptions({ headerShown: false });
     }, []);
     const [user, setUser] = useState([]);
+    const [profilePicUri, setProfilePicUri] = useState(null);
 
     const [firstname, setFirst] = useState("");
     const [lastname, setLast] = useState("");
     const [birthdate, setBirth] = useState("");
     const [phone, setPhone] = useState("");
     const [viewMode, setViewMode] = useState(true);
-   
+    const [image, setImage] = useState(null);
+
+
+    const handleSelectProfilePic = async () => {
+        let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+    
+        if (permissionResult.granted === false) {
+            alert('Permission to access camera roll is required!');
+            return;
+        }
+    
+        let pickerResult = await ImagePicker.launchImageLibraryAsync();
+    
+        if (pickerResult.cancelled === true) {
+            return;
+        }
+    
+        setProfilePicUri(pickerResult.uri);
+    };
+    
 
     const handleShowData = async () => {
         // const docRef = doc(db, "users", auth.currentUser.uid);
@@ -47,6 +74,56 @@ export default function Profile({ navigation }) {
             });
         });
     }
+    const pickImage = async () => {
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+          mediaTypes: ImagePicker.MediaTypeOptions.All,
+          allowsEditing: true,
+          aspect: [4, 3],
+          quality: 1,
+        });
+  
+        console.log(result);
+  
+        if (!result.canceled) {
+          setImage(result.assets[0].uri);
+          const uploadedUrl=await handleUpdateImage(result.assets[0].uri);
+          updateUserPhotoUrl(uploadedUrl);
+        }
+      };
+
+          const handleUpdateImage = async (uri) => {
+              const blob = await new Promise((resolve, reject) => {
+                const xhr = new XMLHttpRequest();
+                xhr.onload = function () {
+                  resolve(xhr.response);
+                };
+                xhr.onerror = function (e) {
+                  console.log(e);
+                  reject(new TypeError("Network request failed"));
+                };
+                xhr.responseType = "blob";
+                xhr.open("GET", uri, true);
+                xhr.send(null);
+              });
+              try {
+                const storageRef = ref(storage, "images/" + auth.currentUser.uid);
+                const result = await uploadBytes(storageRef, blob);
+                // blob.close()
+                return await getDownloadURL(storageRef);
+                console.log("upload done")
+              } catch (error) {
+                alert(error)
+              }
+              // upload image
+          
+                };
+          const updateUserPhotoUrl = (url) => {
+            updateProfile(auth.currentUser, {
+                      photoURL: url,
+                    })
+          };
+          
 
     const handleSave = () => {
         setViewMode(true);
@@ -67,6 +144,7 @@ export default function Profile({ navigation }) {
             lName: lastname,
             birthdate: birthdate,
             phone: phone,
+            profilePicUri: profilePicUri,
         })
             .then(() => {
                 alert("Your information updated");
@@ -95,7 +173,7 @@ export default function Profile({ navigation }) {
                         <View style={styles.header}></View>
                         <View style={{ alignItems: 'center' }}>
                             <TouchableOpacity>
-                                <Image style={styles.avatar} source={require('../assets/profile_pic.jpg')}></Image>
+                            <Image style={styles.avatar} source={auth.currentUser.photoURL?{uri:auth.currentUser.photoURL}:image?{uri: image}:profile }></Image>
 
                             </TouchableOpacity>
                         </View>
@@ -139,11 +217,15 @@ export default function Profile({ navigation }) {
                         <View style={styles.header}></View>
                         <View style={{ alignItems: 'center' }}>
                             <TouchableOpacity>
-                                <Image style={styles.avatar} source={require('../assets/profile_pic.jpg')}></Image>
+                            <Image style={styles.avatar} source={auth.currentUser.photoURL?{uri:auth.currentUser.photoURL}:image?{uri: image}:profile }></Image>
+
 
                             </TouchableOpacity>
                         </View>
 
+                        <TouchableOpacity style={styles.inputView} onPress={handleSelectProfilePic}>
+    <Text style={styles.inputText}>Select Profile Picture</Text>
+</TouchableOpacity>
 
                         <View style={styles.inputMail}>
                             <Text style={styles.mail}>{auth.currentUser.email}</Text>
