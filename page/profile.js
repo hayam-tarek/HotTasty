@@ -2,16 +2,11 @@ import { StatusBar } from 'expo-status-bar';
 import React, { useState, useEffect } from 'react';
 import { StyleSheet, Text, View, Image, TextInput, TouchableOpacity, ScrollView, Pressable } from 'react-native';
 import { signOut } from "firebase/auth";
-import { storage  } from '../middlewere/Config'
-import { ref , getDownloadURL , uploadBytes } from "firebase/storage";;
-import * as ImagePicker from "expo-image-picker";
 import { doc, getDoc } from "firebase/firestore";
 import { updateDoc } from "firebase/firestore";
 import { auth, db } from '../middlewere/Config';
 import { getUserUId } from "../middlewere/firebase/auth";
 import { getUserById, edituser, subscribe } from "../middlewere/firebase/users";
-import { updateProfile } from "firebase/auth";
-import profile from '../assets/profile_pic.jpg'
 
 export default function Profile({ navigation }) {
     React.useLayoutEffect(() => {
@@ -24,7 +19,7 @@ export default function Profile({ navigation }) {
     const [birthdate, setBirth] = useState("");
     const [phone, setPhone] = useState("");
     const [viewMode, setViewMode] = useState(true);
-    const [image, setImage] = useState(null);
+   
 
     const handleShowData = async () => {
         // const docRef = doc(db, "users", auth.currentUser.uid);
@@ -41,55 +36,7 @@ export default function Profile({ navigation }) {
         //     // docSnap.data() will be undefined in this case
         //     console.log("No such document!");
         // }
-        const pickImage = async () => {
-            // No permissions request is necessary for launching the image library
-            let result = await ImagePicker.launchImageLibraryAsync({
-              mediaTypes: ImagePicker.MediaTypeOptions.All,
-              allowsEditing: true,
-              aspect: [4, 3],
-              quality: 1,
-            });
-      
-            console.log(result);
-      
-            if (!result.canceled) {
-              setImage(result.assets[0].uri);
-              const uploadedUrl=await handleUpdateImage(result.assets[0].uri);
-              updateUserPhotoUrl(uploadedUrl);
-            }
-          };
-    
-              const handleUpdateImage = async (uri) => {
-                  const blob = await new Promise((resolve, reject) => {
-                    const xhr = new XMLHttpRequest();
-                    xhr.onload = function () {
-                      resolve(xhr.response);
-                    };
-                    xhr.onerror = function (e) {
-                      console.log(e);
-                      reject(new TypeError("Network request failed"));
-                    };
-                    xhr.responseType = "blob";
-                    xhr.open("GET", uri, true);
-                    xhr.send(null);
-                  });
-                  try {
-                    const storageRef = ref(storage, "images/" + auth.currentUser.uid);
-                    const result = await uploadBytes(storageRef, blob);
-                    // blob.close()
-                    return await getDownloadURL(storageRef);
-                    console.log("upload done")
-                  } catch (error) {
-                    alert(error)
-                  }
-                  // upload image
-              
-                    };
-              const updateUserPhotoUrl = (url) => {
-                updateProfile(auth.currentUser, {
-                          photoURL: url,
-                        })
-              };
+
         getUserUId().then((id) => {
             getUserById(id).then((user) => {
                 setUser(user[0]);
@@ -148,7 +95,7 @@ export default function Profile({ navigation }) {
                         <View style={styles.header}></View>
                         <View style={{ alignItems: 'center' }}>
                             <TouchableOpacity>
-                                <Image style={styles.avatar} source={auth.currentUser.photoURL?{uri:auth.currentUser.photoURL}:image?{uri: image}:profile }></Image>
+                                <Image style={styles.avatar} source={require('../assets/profile_pic.jpg')}></Image>
 
                             </TouchableOpacity>
                         </View>
@@ -192,7 +139,7 @@ export default function Profile({ navigation }) {
                         <View style={styles.header}></View>
                         <View style={{ alignItems: 'center' }}>
                             <TouchableOpacity>
-                                <Image style={styles.avatar} source={auth.currentUser.photoURL?{uri:auth.currentUser.photoURL}:image?{uri: image}:profile }></Image>
+                                <Image style={styles.avatar} source={require('../assets/profile_pic.jpg')}></Image>
 
                             </TouchableOpacity>
                         </View>
