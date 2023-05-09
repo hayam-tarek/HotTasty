@@ -86,7 +86,7 @@ export default function SignIN({ }) {
         <View style={styles.frameView}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("GetStart");
+              navigation.navigate("Home");
             }}
           >
             <Image source={Frame} style={styles.frame} />
@@ -99,24 +99,24 @@ export default function SignIN({ }) {
 
       <View style={styles.emailView}>
         <Text style={styles.inpText}>E-mail Adderss</Text>
-        <View style={styles.inpView}>
-          <TextInput
-            style={styles.input}
-            keyboardType='email-address'
-            onChangeText={email => setEmail(email)}
-          />
-        </View>
+        {/* <View style={styles.inpView}> */}
+        <TextInput
+          style={styles.input}
+          keyboardType='email-address'
+          onChangeText={email => setEmail(email)}
+        />
+        {/* </View> */}
       </View>
 
       <View style={styles.emailView}>
         <Text style={styles.inpText}>Password</Text>
-        <View style={styles.inpView}>
-          <TextInput
-            style={styles.input}
-            secureTextEntry={true}
-            onChangeText={password => setPassword(password)}
-          />
-        </View>
+        {/* <View style={styles.inpView}> */}
+        <TextInput
+          style={styles.input}
+          secureTextEntry={true}
+          onChangeText={password => setPassword(password)}
+        />
+        {/* </View> */}
       </View>
 
 
@@ -161,7 +161,7 @@ export default function SignIN({ }) {
               navigation.navigate("Register");
             }}
           >
-            <Text style={styles.uptext}>Sign up</Text>
+            <Text style={styles.uptext}> Sign up</Text>
           </TouchableOpacity>
         </Text>
       </View>
@@ -200,6 +200,7 @@ const styles = StyleSheet.create({
     color: "#042628",
     fontWeight: 1000,
     fontSize: 23,
+    
   },
 
   emailView: {
@@ -299,6 +300,7 @@ const styles = StyleSheet.create({
     // marginLeft: -190,
     // marginTop: -60,
     marginBottom: 15,
+    marginTop: 10
     // backgroundColor: 'rgba(193, 100, 25, 0.3)',
 
   },
@@ -339,12 +341,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   GoogleTextView: {
-    marginTop: -15,
+    marginTop: -17,
     borderColor: '#white',
+    alignItems: 'center'
   },
   SinginWithGoogleView: {
     marginTop: 30,
-    borderRadius:15,
+    borderRadius: 15,
     backgroundColor: '#042628',
   },
   accountcreate: {
