@@ -1,7 +1,7 @@
 import { View, Text, Image, StyleSheet, Animated } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import React, { useState, useEffect } from "react";
-import Log from "../assets/recipely-ingredients-logo- (1).png";
+import Log from "../assets/logoo.png";
 
 export default function Logo({ navigation }) {
   const opacity = new Animated.Value(1);
@@ -34,7 +34,7 @@ export default function Logo({ navigation }) {
 const styles = StyleSheet.create({
   body: {
     flex: 1,
-    backgroundColor: "#70b9be",
+    backgroundColor: 'rgba(67, 111, 114, .5)',
     alignItems: "center",
     justifyContent: "center",
   },

@@ -1,6 +1,6 @@
-
 import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
+import { FontAwesome } from '@expo/vector-icons'; // import the icon library
 
 const Card = ({ navigation }) => {
   React.useLayoutEffect(() => {
@@ -8,10 +8,10 @@ const Card = ({ navigation }) => {
   }, []);
 
   const items = [
-    {id: 1, title: "Hot drink", image: require('../assets/hotd.png'), screen:'HotDrinkScreen'},
+    {id: 1, title: "Hot Tea", image: require('../assets/teab.png'), screen:'HotDrinkScreen'},
 
-    {id: 2, title: "Pizza", image: require('../assets/piizza.png'), screen: 'HotDrinkScreen'},
-    {id: 3, title: "baked cookies", image: require('../assets/bakedcookie.png')},
+    {id: 2, title: "Pizza", image: require('../assets/piizza.png'), screen: 'Pizza'},
+    {id: 3, title: "baked cookies", image: require('../assets/bakedcookie.png'), screen: 'cookies'},
     {id: 4, title: "Fruit salat  ", image: require('../assets/fruit salad.png')},
     {id: 5, title: "juice", image: require('../assets/juice.png')},
     {id: 6, title: "burger", image: require('../assets/burger.png')},
@@ -27,24 +27,30 @@ const Card = ({ navigation }) => {
   };
 
   return (
-    <ScrollView>
-      <View style={styles.container}>
-        {items.map(item => (
-          <TouchableOpacity key={item.id} style={styles.card} onPress={() => handlePress(item.screen)}>
-            <Image source={item.image} style={styles.image} />
-            <Text style={styles.title}>{item.title}</Text>
-          </TouchableOpacity>
-        ))}
-        <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Profile')}>
-          <Text style={styles.buttonText}>Profile</Text>
-        </TouchableOpacity>
-      </View>
-    </ScrollView>
+    <View style={styles.container}>
+      <ScrollView>
+        <View style={styles.cardContainer}>
+          {items.map(item => (
+            <TouchableOpacity key={item.id} style={styles.card} onPress={() => handlePress(item.screen)}>
+              <Image source={item.image} style={styles.image} />
+              <Text style={styles.title}>{item.title}</Text>
+            </TouchableOpacity>
+          ))}
+        </View>
+      </ScrollView>
+      <TouchableOpacity style={styles.profileButton} onPress={() => navigation.navigate('Profile')}>
+        <FontAwesome name="user-circle-o" size={30} color="white" /> {/* Use the icon */}
+      </TouchableOpacity>
+    </View>
   );
+  
 }
-
 const styles = StyleSheet.create({
   container: {
+    flex: 1,
+    position: 'relative',
+  },
+  cardContainer: {
     flex: 1,
     flexDirection: 'row',
     flexWrap: 'wrap',
@@ -55,54 +61,43 @@ const styles = StyleSheet.create({
     width: '48%',
     marginBottom: 20,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: '#436f72',
     borderRadius: 5,
     padding: 10,
     shadowColor: '#000',
     shadowOffset: {
-        width: 0,
-        height: 2,
-      },
-      shadowOpacity: 0.25,
-      shadowRadius: 4,
-      elevation: 5,
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.25,
+    shadowRadius: 4,
+    elevation: 5,
   },
   image: {
     height: undefined,
     aspectRatio: 1,
     width: '100%',
-   
     resizeMode: 'cover',
-
     marginBottom: 10,
   },
   title: {
     fontSize: 16,
     fontWeight: 'bold',
     textAlign: 'center',
-    color: '#c16419',
+    color: '#70b9be',
   },
-  button: {
-    width: "45%",
-    borderRadius: 10,
-    borderWidth: 2,
-    borderColor: '#c16419',
-    height: 40,
-    alignItems: "center",
-    justifyContent: "center",
-    marginLeft: 120,
-    // marginTop: -60,
-    marginBottom: 15,
-    backgroundColor: 'rgba(193, 100, 25, 0.3)',
-  },
-  buttonText: {
-    color: '#c16419',
-    fontSize: 25,
-    lineHeight: 30,
-    fontWeight: 'bold',
-    textAlign: 'center',
-    
+  profileButton: {
+    position: 'absolute',
+    bottom: 10,
+    right: 10,
+    width: 50,
+    height: 50,
+    borderRadius: 30,
+    backgroundColor: '#70b9be',
+    alignItems: 'center',
+    justifyContent: 'center',
   },
 });
+
 
 export default Card;

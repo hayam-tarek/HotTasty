@@ -9,7 +9,10 @@ import GetStart from '../page/getStart';
 import ForgetPass from '../page/forgetPass';
 import Card from '../page/Card';
 import HotDrinkScreen  from '../page/items/HotDrinkScreen';
+import Pizza  from '../page/items/Pizza';
+import cookies  from '../page/items/cookies';
 import Logo from '../page/Logo';
+
 // import Signin from '../page/signIN';
 // import SignUp from '../page/register';
 // import Forget from '../page/Forget';
@@ -41,6 +44,8 @@ const index = () => {
         <Stack.Screen name="SignIN" component={SignIN} />
         <Stack.Screen name="Card" component={Card} />
         <Stack.Screen name="HotDrinkScreen" component={HotDrinkScreen } />
+        <Stack.Screen name="cookies" component={cookies } />
+        <Stack.Screen name="Pizza" component={Pizza } />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="ForgetPass" component={ForgetPass} />
         {/* <Stack.Screen name="Signin" component={Signin} />

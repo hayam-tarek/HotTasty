@@ -24,7 +24,7 @@ export default function GetStart({ navigation }) {
         shouldPlay
         onPlaybackStatusUpdate={status => setStatus(() => status)}
       />
-      <Image style={styles.image} source={require('../assets/text.png')}></Image>
+      
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Home')}>
         <Text style={styles.buttonText}>Get Started</Text>
       </TouchableOpacity>
@@ -55,19 +55,19 @@ const styles = StyleSheet.create({
     width: "60%",
     borderRadius: 10,
     borderWidth: 2,
-    borderColor: '#c16419',
+    borderColor: '#042628',
     height: 50,
     alignItems: "center",
     justifyContent: "center",
     // marginLeft: -190,
     // marginTop: -60,
     marginBottom: 15,
-    backgroundColor: 'rgba(255, 255, 255, .7)',
+    backgroundColor: 'rgba(67, 111, 114, .1)',
     padding:10,
     marginTop:300
   },
   buttonText: {
-    color: '#c16419',
+    color: '#rgba(67, 111, 114, .8)',
     fontSize: 30,
     lineHeight: 30,
     fontWeight: 'bold',

@@ -26,39 +26,30 @@ export default function SignIN({ }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  const checkDate = () => {
-    if (!email.includes("@") || email.length === 0 || password.length < 8)
-      alert("invalid information");
-    else
-      login(email, password)
-        .then(() => {
-          navigation.navigate("Card");
-          alert("Login Success!");
-        })
-        .catch((e) => {
-          if (
-            e.message.includes("invalid-email") &&
-            email === "" &&
-            password === ""
-          ) {
-            alert("Please enter your email and password");
-          } else if (e.message.includes("invalid-email") && email === "") {
-            alert("Please enter your email");
-          } else if (e.message.includes("invalid-email") && email !== "") {
-            alert("The Email is incorrect");
-          } else if (e.message.includes("internal-error") && password === "") {
-            alert("Please enter your password");
-          } else if (e.message.includes("wrong-password") && password !== "") {
-            alert("The password is incorrect");
-          } else if (
-            e.message.includes("user-not-found") &&
-            email !== "" &&
-            password !== ""
-          ) {
-            alert("The user is not exist");
-          }
-        });
-  };
+  
+const checkDate = () => {
+  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+  if (!emailRegex.test(email) || password.length < 8) {
+    alert("Invalid information");
+  } else {
+    login(email, password)
+      .then(() => {
+        navigation.navigate("Card");
+        alert("Login Success!");
+      })
+      .catch((e) => {
+        if (e.code === "auth/invalid-email") {
+          alert("The Email is incorrect");
+        } else if (e.code === "auth/wrong-password") {
+          alert("The password is incorrect");
+        } else if (e.code === "auth/user-not-found") {
+          alert("The user is not exist");
+        } else {
+          alert("Login failed");
+        }
+      });
+  }
+};
 
 
 
@@ -80,13 +71,14 @@ export default function SignIN({ }) {
 
 
   return (
+    
     <SafeAreaView style={styles.container}>
 
       <View style={styles.titleView}>
         <View style={styles.frameView}>
           <TouchableOpacity
             onPress={() => {
-              navigation.navigate("GetStart");
+              navigation.navigate("Home");
             }}
           >
             <Image source={Frame} style={styles.frame} />
@@ -99,24 +91,24 @@ export default function SignIN({ }) {
 
       <View style={styles.emailView}>
         <Text style={styles.inpText}>E-mail Adderss</Text>
-        <View style={styles.inpView}>
-          <TextInput
-            style={styles.input}
-            keyboardType='email-address'
-            onChangeText={email => setEmail(email)}
-          />
-        </View>
+        {/* <View style={styles.inpView}> */}
+        <TextInput
+          style={styles.input}
+          keyboardType='email-address'
+          onChangeText={email => setEmail(email)}
+        />
+        {/* </View> */}
       </View>
 
       <View style={styles.emailView}>
         <Text style={styles.inpText}>Password</Text>
-        <View style={styles.inpView}>
-          <TextInput
-            style={styles.input}
-            secureTextEntry={true}
-            onChangeText={password => setPassword(password)}
-          />
-        </View>
+        {/* <View style={styles.inpView}> */}
+        <TextInput
+          style={styles.input}
+          secureTextEntry={true}
+          onChangeText={password => setPassword(password)}
+        />
+        {/* </View> */}
       </View>
 
 
@@ -161,7 +153,7 @@ export default function SignIN({ }) {
               navigation.navigate("Register");
             }}
           >
-            <Text style={styles.uptext}>Sign up</Text>
+            <Text style={styles.uptext}> Sign up</Text>
           </TouchableOpacity>
         </Text>
       </View>
@@ -200,6 +192,7 @@ const styles = StyleSheet.create({
     color: "#042628",
     fontWeight: 1000,
     fontSize: 23,
+    
   },
 
   emailView: {
@@ -299,6 +292,7 @@ const styles = StyleSheet.create({
     // marginLeft: -190,
     // marginTop: -60,
     marginBottom: 15,
+    marginTop: 10
     // backgroundColor: 'rgba(193, 100, 25, 0.3)',
 
   },
@@ -339,12 +333,13 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   GoogleTextView: {
-    marginTop: -15,
+    marginTop: -17,
     borderColor: '#white',
+    alignItems: 'center'
   },
   SinginWithGoogleView: {
     marginTop: 30,
-    borderRadius:15,
+    borderRadius: 15,
     backgroundColor: '#042628',
   },
   accountcreate: {

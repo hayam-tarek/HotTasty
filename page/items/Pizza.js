@@ -3,10 +3,10 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const HotDrinkScreen = ({ navigation }) => {
+const Pizza = ({ navigation }) => {
 
   navigation.setOptions({
-    headerTitle: 'Hot Drink',
+    headerTitle: 'Pizza',
     headerTintColor: '#436f72',
     headerTitleAlign: 'center',
     headerBackTitleVisible: true,
@@ -22,27 +22,28 @@ const HotDrinkScreen = ({ navigation }) => {
       >
         <View style={styles.imageContainer}>
           <Image
-            source={require('../../assets/teab.png')}
+            source={require('../../assets/pitza.png')}
             style={styles.image}
           />
         </View>
-        <Text style={styles.title}> TEa </Text>
+        <Text style={styles.title}> PIzza </Text>
         <View style={styles.timeContainer}>
           <Icon name="clock-outline" size={20} color="#fff" />
-          <Text style={styles.time}>7 'm</Text>
+          <Text style={styles.time}>30 'm</Text>
         </View>
         <View style={styles.descriptionContainer}>
           <Text style={styles.description}>
-            1. Fill up the kettle with water {"\n"}
-            2. Boil the kettle {"\n"}
-            3. Place a teabag in your favourite mug {"\n"}
-            4. Pour boiling water into your favourite mug {"\n"}
-            5. Brew the tea for a few moments {"\n"}
-            6. Remove and dispose of the teabag {"\n"}
-            7. Add milk {"\n"}
-            8. Add sugar {"\n"}
-            9. Stir the tea {"\n"}
-            10. Enjoy the hot beverage
+          
+    for 16 servings {"\n"}
+      2 ½ cups warm water(600 mL) {"\n"}
+      1 teaspoon sugar {"\n"}
+      2 teaspoons active dry yeast {"\n"}
+      7 cups all-purpose flour(875 g), plus more for dusting {"\n"}
+      6 tablespoons extra virgin olive oil, plus more for greasing {"\n"}
+      1 ½ teaspoons kosher salt {"\n"}
+      ¼ cup semolina flour(30 g) {"\n"}
+
+             Enjoy 
           </Text>
         </View>
       </LinearGradient>
@@ -107,4 +108,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default HotDrinkScreen;
+export default Pizza;
