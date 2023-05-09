@@ -9,9 +9,13 @@ import GetStart from '../page/getStart';
 import ForgetPass from '../page/forgetPass';
 import Card from '../page/Card';
 import HotDrinkScreen from '../page/items/HotDrinkScreen';
+import burger from '../page/items/burger';
+import colddrink from '../page/items/colddrink';
 import Pizza from '../page/items/Pizza';
 import cookies from '../page/items/cookies';
 import Logo from '../page/Logo';
+
+
 
 // import Signin from '../page/signIN';
 // import SignUp from '../page/register';
@@ -42,11 +46,14 @@ const index = () => {
         <Stack.Screen name="Home" component={Home} />
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="SignIN" component={SignIN} />
-        <Stack.Screen name="Card" component={Card} options={{ headerShown: false }} />
-        <Stack.Screen name="HotDrinkScreen" component={HotDrinkScreen} options={{ headerShown: false }} />
-        <Stack.Screen name="cookies" component={cookies} options={{ headerShown: false }} />
-        <Stack.Screen name="Pizza" component={Pizza} options={{ headerShown: false }} />
-        <Stack.Screen name="Profile" component={Profile} options={{ headerShown: false }} />
+        <Stack.Screen name="Card" component={Card}  />
+        <Stack.Screen name="HotDrinkScreen" component={HotDrinkScreen}  />
+        <Stack.Screen name="burger" component={burger}  />
+        <Stack.Screen name="colddrink" component={colddrink}  />
+       
+        <Stack.Screen name="cookies" component={cookies}  />
+        <Stack.Screen name="Pizza" component={Pizza}  />
+        <Stack.Screen name="Profile" component={Profile}  />
         <Stack.Screen name="ForgetPass" component={ForgetPass} />
         {/* <Stack.Screen name="Signin" component={Signin} />
         <Stack.Screen name="SignUp" component={SignUp} />

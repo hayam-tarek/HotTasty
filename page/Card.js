@@ -12,12 +12,15 @@ const Card = ({ navigation }) => {
 
     {id: 2, title: "Pizza", image: require('../assets/piizza.png'), screen: 'Pizza'},
     {id: 3, title: "baked cookies", image: require('../assets/bakedcookie.png'), screen: 'cookies'},
-    {id: 4, title: "Fruit salat  ", image: require('../assets/fruit salad.png')},
-    {id: 5, title: "juice", image: require('../assets/juice.png')},
-    {id: 6, title: "burger", image: require('../assets/burger.png')},
-    {id: 7, title: "Donuts", image: require('../assets/Donuts .png')},
+    {id: 6, title: "burger", image: require('../assets/burger.png'), screen: 'burger'},
+    {id: 7, title: "Donuts", image: require('../assets/Donuts .png'), screen: 'Donuts'},
+    {id: 9, title: "cold drink", image: require('../assets/cold.png'), screen: 'colddrink'},
+    {id: 4, title: "Fruit salat  ", image: require('../assets/fruit salad.png'), screen: 'cookies'},
+    {id: 5, title: "juice", image: require('../assets/juice.png'), screen: 'colddrink'},
+    
+   
     {id: 8, title: "healthy food ", image: require('../assets/helthy.png')},
-    {id: 9, title: "cold drink", image: require('../assets/cold.png')},
+   
     {id: 10, title: "Salat", image: require('../assets/salat.png')}
  
   ];

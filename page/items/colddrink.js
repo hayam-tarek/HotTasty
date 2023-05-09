@@ -3,23 +3,20 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const Pizza = ({ navigation }) => {
-
+const colddrink = ({ navigation }) => {
 
   React.useLayoutEffect(() => {
-    
-      navigation.setOptions({ headerShown: true ,
-         
-              headerTitle: 'HOME',
-              headerTintColor: '#436f72',
-              headerTitleAlign: 'center',
-              headerBackTitleVisible: true,
-              headerTransparent: true,
-              
-      }
-          );
-  }, []);
-  
+    navigation.setOptions({ headerShown: true ,
+       
+            headerTitle: 'HOME',
+            headerTintColor: '#436f72',
+            headerTitleAlign: 'center',
+            headerBackTitleVisible: true,
+            headerTransparent: true,
+            
+    }
+        );
+}, []);
 
   return (
     <View style={styles.container}>
@@ -29,28 +26,25 @@ const Pizza = ({ navigation }) => {
       >
         <View style={styles.imageContainer}>
           <Image
-            source={require('../../assets/pitza.png')}
+            source={require('../../assets/lemo.png')}
             style={styles.image}
           />
         </View>
-        <Text style={styles.title}> PIzza </Text>
+        <Text style={styles.title}> lemonada  </Text>
         <View style={styles.timeContainer}>
           <Icon name="clock-outline" size={20} color="#fff" />
-          <Text style={styles.time}>30 'm</Text>
+          <Text style={styles.time}>3 'm</Text>
         </View>
         <View style={styles.descriptionContainer}>
           <Text style={styles.description}>
+            
           
-    for 16 servings {"\n"}
-      2 ½ cups warm water(600 mL) {"\n"}
-      1 teaspoon sugar {"\n"}
-      2 teaspoons active dry yeast {"\n"}
-      7 cups all-purpose flour(875 g), plus more for dusting {"\n"}
-      6 tablespoons extra virgin olive oil, plus more for greasing {"\n"}
-      1 ½ teaspoons kosher salt {"\n"}
-      ¼ cup semolina flour(30 g) {"\n"}
-
-             Enjoy 
+8 to 10 large lemons{"\n"}
+1 cup granulated sugar{"\n"}
+1 1/2 quarts water (6 cups){"\n"}
+Ice{"\n"}
+Lemon slices. {"\n"}
+     
           </Text>
         </View>
       </LinearGradient>
@@ -115,4 +109,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Pizza;
+export default colddrink;

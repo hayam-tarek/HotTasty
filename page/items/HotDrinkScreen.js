@@ -5,14 +5,18 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 const HotDrinkScreen = ({ navigation }) => {
 
-  navigation.setOptions({
-    headerTitle: 'Hot Drink',
-    headerTintColor: '#436f72',
-    headerTitleAlign: 'center',
-    headerBackTitleVisible: true,
-    headerTransparent: true,
-    
-  });
+  React.useLayoutEffect(() => {
+    navigation.setOptions({ headerShown: true ,
+       
+            headerTitle: 'HOME',
+            headerTintColor: '#436f72',
+            headerTitleAlign: 'center',
+            headerBackTitleVisible: true,
+            headerTransparent: true,
+            
+    }
+        );
+}, []);
 
   return (
     <View style={styles.container}>

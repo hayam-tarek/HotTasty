@@ -3,23 +3,20 @@ import { View, Text, Image, StyleSheet } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import { LinearGradient } from 'expo-linear-gradient';
 
-const Pizza = ({ navigation }) => {
-
+const burger = ({ navigation }) => {
 
   React.useLayoutEffect(() => {
-    
-      navigation.setOptions({ headerShown: true ,
-         
-              headerTitle: 'HOME',
-              headerTintColor: '#436f72',
-              headerTitleAlign: 'center',
-              headerBackTitleVisible: true,
-              headerTransparent: true,
-              
-      }
-          );
-  }, []);
-  
+    navigation.setOptions({ headerShown: true ,
+       
+            headerTitle: 'HOME',
+            headerTintColor: '#436f72',
+            headerTitleAlign: 'center',
+            headerBackTitleVisible: true,
+            headerTransparent: true,
+            
+    }
+        );
+}, []);
 
   return (
     <View style={styles.container}>
@@ -29,28 +26,27 @@ const Pizza = ({ navigation }) => {
       >
         <View style={styles.imageContainer}>
           <Image
-            source={require('../../assets/pitza.png')}
+            source={require('../../assets/burger1.png')}
             style={styles.image}
           />
         </View>
-        <Text style={styles.title}> PIzza </Text>
+        <Text style={styles.title}> burger </Text>
         <View style={styles.timeContainer}>
           <Icon name="clock-outline" size={20} color="#fff" />
-          <Text style={styles.time}>30 'm</Text>
+          <Text style={styles.time}>15 'm</Text>
         </View>
         <View style={styles.descriptionContainer}>
           <Text style={styles.description}>
+            Prepare buns and toppings first and cook burger patties last.{"\n"}
+           
+Use refrigerated Ground Chuck Beef (80/20) – grind your own or buy it ground, but 20% fat is ideal.{"\n"}
           
-    for 16 servings {"\n"}
-      2 ½ cups warm water(600 mL) {"\n"}
-      1 teaspoon sugar {"\n"}
-      2 teaspoons active dry yeast {"\n"}
-      7 cups all-purpose flour(875 g), plus more for dusting {"\n"}
-      6 tablespoons extra virgin olive oil, plus more for greasing {"\n"}
-      1 ½ teaspoons kosher salt {"\n"}
-      ¼ cup semolina flour(30 g) {"\n"}
-
-             Enjoy 
+Do not overwork your meat.{"\n"}
+Shape the patties 1” wider than the bun since they shrink on the grill.{"\n"}
+Make an indentation in the center to prevent it from plumping up in the center.{"\n"}
+Season patties generously with salt and pepper just prior to cooking. Salt changes the structure of proteins and toughens burgers. Do not salt the ground beef before forming into patties.{"\n"}
+Once on the grill, let patties brown and sear well (3-5 min) before flipping and do not press down on the burger. {"\n"}
+     
           </Text>
         </View>
       </LinearGradient>
@@ -115,4 +111,4 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Pizza;
+export default burger;

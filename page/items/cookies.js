@@ -5,14 +5,18 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 const cookies = ({ navigation }) => {
 
-  navigation.setOptions({
-    headerTitle: 'cookies',
-    headerTintColor: '#436f72',
-    headerTitleAlign: 'center',
-    headerBackTitleVisible: true,
-    headerTransparent: true,
-    
-  });
+  React.useLayoutEffect(() => {
+    navigation.setOptions({ headerShown: true ,
+       
+            headerTitle: 'HOME',
+            headerTintColor: '#436f72',
+            headerTitleAlign: 'center',
+            headerBackTitleVisible: true,
+            headerTransparent: true,
+            
+    }
+        );
+}, []);
 
   return (
     <View style={styles.container}>

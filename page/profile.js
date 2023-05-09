@@ -17,7 +17,16 @@ import profile from '../assets/profile_pic.jpg'
 
 export default function Profile({ navigation }) {
     React.useLayoutEffect(() => {
-        navigation.setOptions({ headerShown: true });
+        navigation.setOptions({ headerShown: true ,
+           
+                headerTitle: 'HOME',
+                headerTintColor: '#436f72',
+                headerTitleAlign: 'center',
+                headerBackTitleVisible: true,
+                headerTransparent: true,
+                
+        }
+            );
     }, []);
     const [user, setUser] = useState([]);
     const [profilePicUri, setProfilePicUri] = useState(null);
@@ -45,9 +54,19 @@ export default function Profile({ navigation }) {
         }
 
         setProfilePicUri(pickerResult.uri);
-    };
+    
 
 
+    const imageUri = pickerResult.uri;
+    const response = await fetch(imageUri);
+    const blob = await response.blob();
+  
+    const storageRef = ref(storage, `users/${auth.currentUser.uid}/profilePic`);
+    await uploadBytes(storageRef, blob);
+  
+    const downloadUrl = await getDownloadURL(storageRef);
+    setProfilePicUri(downloadUrl);
+};
     const handleShowData = async () => {
         // const docRef = doc(db, "users", auth.currentUser.uid);
         // const docSnap = await getDoc(docRef);
