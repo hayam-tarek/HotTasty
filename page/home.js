@@ -59,7 +59,7 @@ const styles = StyleSheet.create({
     flex: 1,
     justifyContent: 'flex-end',
     width: '100%',
-    marginBottom: 250,
+    marginBottom: 300,
   },
   titleContainer: {
     alignItems: 'center',
@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     borderColor: '#1b3b52',
     backgroundColor: '#042628',
     height: 40,
-    width: '35%',
+    width: '40%',
     alignItems: 'center',
     justifyContent: 'center',
     marginBottom: 10,

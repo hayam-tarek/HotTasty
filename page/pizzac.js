@@ -2,29 +2,30 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; // import the icon library
 
-const Card = ({ navigation }) => {
-  React.useLayoutEffect(() => {
-    navigation.setOptions({ headerShown: false });
-  }, []);
-
+const pizzac = ({ navigation }) => {
+    React.useLayoutEffect(() => {
+        navigation.setOptions({ headerShown: true ,
+           
+                headerTitle: 'Pizza',
+                headerTintColor: '#436f72',
+                headerTitleAlign: 'center',
+                headerBackTitleVisible: true,
+                headerTransparent: true,
+                
+        }
+            );
+    }, []);
   const items = [
-    { id: 1, title: " Drinks", image: require('../assets/drinks.png'), screen: 'items' },
-    { id: 2, title: "Pizza", image: require('../assets/piizza.png'), screen: 'pizzac' },
-    { id: 6, title: "Burgers", image: require('../assets/burger.png'), screen: 'burgers' },
-    { id: 4, title: "Fruit salat  ", image: require('../assets/fruit salad.png'), screen: 'Fruitsalat' },
-    { id: 8, title: "healthy food ", image: require('../assets/helthy.png'),screen: 'healthyfood'},
-    { id: 3, title: "baked cookies", image: require('../assets/bakedcookie.png'), screen: 'cookies' },
-    { id: 7, title: "Donuts", image: require('../assets/Donuts .png'), screen: 'Donuts' },
-    // { id: 10, title: "cold drink", image: require('../assets/cold.png'), screen: 'colddrink' },
-    
-
-    
-
-    { id: 5, title: "Salat", image: require('../assets/salat.png') },
-
-    // { id: 9, title: "juice", image: require('../assets/juice.png'), screen: 'colddrink' },
-
-
+    {id: 1, title: "barbeque pizza", image: require('../assets/pizza7.png'), screen:'Pizza'},
+    {id: 2, title: "mushroom pizza", image: require('../assets/pizza3.png'), screen: 'Pizza'},
+   
+    {id: 3, title: "pepperoni pizza", image: require('../assets/pizza1.png'), screen: 'Pizza'},
+    {id: 4, title: "cheese pizza", image: require('../assets/pizza2.png'), screen: 'Pizza'},
+    {id: 5, title: "pizza crust", image: require('../assets/pizza4.png'), screen: 'Pizza'},
+  
+    {id: 7, title: "pizza sauce", image: require('../assets/pizza6.png'), screen: 'Pizza'},
+    {id: 8, title: "pizza Buffalo", image: require('../assets/pizza5.png'), screen: 'Pizza'},
+ 
   ];
 
   const handlePress = (screenName) => {
@@ -48,7 +49,7 @@ const Card = ({ navigation }) => {
       </TouchableOpacity>
     </View>
   );
-
+  
 }
 const styles = StyleSheet.create({
   container: {
@@ -61,6 +62,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     padding: 10,
+    marginTop:50,
   },
   card: {
     width: '48%',
@@ -105,4 +107,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Card;
+export default pizzac;

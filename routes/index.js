@@ -14,7 +14,9 @@ import colddrink from '../page/items/colddrink';
 import Pizza from '../page/items/Pizza';
 import cookies from '../page/items/cookies';
 import Logo from '../page/Logo';
-
+import items from '../page/items';
+import pizzac from '../page/pizzac';
+import burgers from '../page/burgers';
 
 
 // import Signin from '../page/signIN';
@@ -50,9 +52,11 @@ const index = () => {
         <Stack.Screen name="HotDrinkScreen" component={HotDrinkScreen}  />
         <Stack.Screen name="burger" component={burger}  />
         <Stack.Screen name="colddrink" component={colddrink}  />
-       
+        <Stack.Screen name="items" component={items}  />
         <Stack.Screen name="cookies" component={cookies}  />
         <Stack.Screen name="Pizza" component={Pizza}  />
+        <Stack.Screen name="pizzac" component={pizzac}  />
+        <Stack.Screen name="burgers" component={burgers}  />
         <Stack.Screen name="Profile" component={Profile}  />
         <Stack.Screen name="ForgetPass" component={ForgetPass} />
         {/* <Stack.Screen name="Signin" component={Signin} />

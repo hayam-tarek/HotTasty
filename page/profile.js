@@ -19,7 +19,7 @@ export default function Profile({ navigation }) {
     React.useLayoutEffect(() => {
         navigation.setOptions({ headerShown: true ,
            
-                headerTitle: 'HOME',
+                headerTitle: 'Profile',
                 headerTintColor: '#436f72',
                 headerTitleAlign: 'center',
                 headerBackTitleVisible: true,

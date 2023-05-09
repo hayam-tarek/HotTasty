@@ -2,29 +2,30 @@ import React from 'react';
 import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'react-native';
 import { FontAwesome } from '@expo/vector-icons'; // import the icon library
 
-const Card = ({ navigation }) => {
-  React.useLayoutEffect(() => {
-    navigation.setOptions({ headerShown: false });
-  }, []);
-
+const burgers = ({ navigation }) => {
+    React.useLayoutEffect(() => {
+        navigation.setOptions({ headerShown: true ,
+           
+                headerTitle: 'Burgers',
+                headerTintColor: '#436f72',
+                headerTitleAlign: 'center',
+                headerBackTitleVisible: true,
+                headerTransparent: true,
+                
+        }
+            );
+    }, []);
   const items = [
-    { id: 1, title: " Drinks", image: require('../assets/drinks.png'), screen: 'items' },
-    { id: 2, title: "Pizza", image: require('../assets/piizza.png'), screen: 'pizzac' },
-    { id: 6, title: "Burgers", image: require('../assets/burger.png'), screen: 'burgers' },
-    { id: 4, title: "Fruit salat  ", image: require('../assets/fruit salad.png'), screen: 'Fruitsalat' },
-    { id: 8, title: "healthy food ", image: require('../assets/helthy.png'),screen: 'healthyfood'},
-    { id: 3, title: "baked cookies", image: require('../assets/bakedcookie.png'), screen: 'cookies' },
-    { id: 7, title: "Donuts", image: require('../assets/Donuts .png'), screen: 'Donuts' },
-    // { id: 10, title: "cold drink", image: require('../assets/cold.png'), screen: 'colddrink' },
-    
-
-    
-
-    { id: 5, title: "Salat", image: require('../assets/salat.png') },
-
-    // { id: 9, title: "juice", image: require('../assets/juice.png'), screen: 'colddrink' },
-
-
+    {id: 1, title: "Turkey burger", image: require('../assets/burger1.png'), screen:'burger'},
+    {id: 2, title: "mushroom burger", image: require('../assets/burger2.png'), screen: 'burger'},
+   
+    {id: 3, title: "Veggie burger", image: require('../assets/burger3.png'), screen: 'burger'},
+    {id: 4, title: "Wild salmon burger", image: require('../assets/burger4.png'), screen: 'burger'},
+    {id: 5, title: "Bean burger", image: require('../assets/burger5.png'), screen: 'burger'},
+    {id: 6, title: "Cheeseburger", image: require('../assets/burger6.png'), screen: 'burger'},
+    {id: 7, title: "Chicken Burger", image: require('../assets/burger7.png'), screen: 'burger'},
+    {id: 8, title: "bacon cheeseburger", image: require('../assets/burger8.png'), screen: 'burger'},
+ 
   ];
 
   const handlePress = (screenName) => {
@@ -48,7 +49,7 @@ const Card = ({ navigation }) => {
       </TouchableOpacity>
     </View>
   );
-
+  
 }
 const styles = StyleSheet.create({
   container: {
@@ -61,6 +62,7 @@ const styles = StyleSheet.create({
     flexWrap: 'wrap',
     justifyContent: 'space-between',
     padding: 10,
+    marginTop:50,
   },
   card: {
     width: '48%',
@@ -105,4 +107,4 @@ const styles = StyleSheet.create({
 });
 
 
-export default Card;
+export default burgers;
