@@ -72,13 +72,14 @@ export default function Profile({ navigation }) {
                 setPhone(user[0].phone);
                 setBirth(user[0].birthdate);
             });
-        });}
-        const handleSave = () => {
-            setViewMode(true);
-            handleUpdate();
-        }
-        const handleUpdate = async () => {
-            // const washingtonRef = doc(db, "users", auth.currentUser.uid);
+        });
+    }
+    const handleSave = () => {
+        setViewMode(true);
+        handleUpdate();
+    }
+    const handleUpdate = async () => {
+        // const washingtonRef = doc(db, "users", auth.currentUser.uid);
 
 
         edituser({
@@ -115,8 +116,8 @@ export default function Profile({ navigation }) {
                         <StatusBar style="auto" />
                         <View style={styles.header}></View>
                         <View style={{ alignItems: 'center' }}>
-                        <TouchableOpacity>
-                            <Image style={styles.avatar} source={{ uri: profilePicUri ?? 'https://via.placeholder.com/150' }}></Image>
+                            <TouchableOpacity>
+                                <Image style={styles.avatar} source={{ uri: profilePicUri ?? 'https://via.placeholder.com/150' }}></Image>
 
                             </TouchableOpacity>
                         </View>
@@ -142,13 +143,20 @@ export default function Profile({ navigation }) {
                                 <Text style={styles.inputText}>{phone}</Text>
 
                             </View>
-                            <TouchableOpacity style={styles.button} onPress={handleEdit}>
-                                <Text style={styles.button1}>Edit</Text>
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.button} onPress={handleSignOut}>
-                                <Text style={styles.button1}>Sign Out</Text>
-
-                            </TouchableOpacity>
+                            <View style={styles.buttonview}>
+                                <TouchableOpacity style={styles.button} onPress={handleEdit} >
+                                    <View style={styles.button2}>
+                                        <Text style={styles.button1}> Edit</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.buttonview}>
+                                <TouchableOpacity style={styles.button} onPress={handleSignOut} >
+                                    <View style={styles.button2}>
+                                        <Text style={styles.button1}> Sign out</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
                         </SafeAreaView>
                     </ScrollView>
                 </View>
@@ -160,16 +168,16 @@ export default function Profile({ navigation }) {
                         <StatusBar style="auto" />
                         <View style={styles.header}></View>
                         <View style={{ alignItems: 'center' }}>
-                        <TouchableOpacity>
-                            <Image style={styles.avatar} source={{ uri: profilePicUri ?? 'https://via.placeholder.com/150' }}></Image>
+                            <TouchableOpacity>
+                                <Image style={styles.avatar} source={{ uri: profilePicUri ?? 'https://via.placeholder.com/150' }}></Image>
 
 
                             </TouchableOpacity>
                         </View>
                         <SafeAreaView style={styles.container}>
-                        <TouchableOpacity style={styles.inputView} onPress={handleSelectProfilePic}>
-    <Text style={styles.inputText}>Select Profile Picture</Text>
-</TouchableOpacity>
+                            <TouchableOpacity style={styles.inputView} onPress={handleSelectProfilePic}>
+                                <Text style={styles.inputText}>Select Profile Picture</Text>
+                            </TouchableOpacity>
 
                             <View style={styles.inputMail}>
                                 <Text style={styles.mail}>{auth.currentUser.email}</Text>
@@ -204,14 +212,20 @@ export default function Profile({ navigation }) {
                                     onChangeText={phone => setPhone(phone)}
                                 />
                             </View>
-                            <TouchableOpacity style={styles.button} onPress={handleSave}>
-                                <Text style={styles.button1}>Save</Text>
-
-                            </TouchableOpacity>
-                            <TouchableOpacity style={styles.button} onPress={handleSignOut}>
-                                <Text style={styles.button1}>Sign Out</Text>
-
-                            </TouchableOpacity>
+                            <View style={styles.buttonview}>
+                                <TouchableOpacity style={styles.button} onPress={handleSave} >
+                                    <View style={styles.button2}>
+                                        <Text style={styles.button1}> Save</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
+                            <View style={styles.buttonview}>
+                                <TouchableOpacity style={styles.button} onPress={handleSignOut}>
+                                    <View style={styles.button2}>
+                                        <Text style={styles.button1}> Sign out</Text>
+                                    </View>
+                                </TouchableOpacity>
+                            </View>
                         </SafeAreaView>
                     </ScrollView>
                 </View>
@@ -225,6 +239,7 @@ const styles = StyleSheet.create({
         backgroundColor: '#042628',
         height: 150,
     },
+
     avatar: {
         width: 130,
         height: 130,
@@ -302,7 +317,7 @@ const styles = StyleSheet.create({
         height: 40,
         alignItems: "center",
         justifyContent: "center",
-       
+
         marginLeft: 10,
         marginBottom: 20,
         backgroundColor: 'rgba(193, 100, 25, 0.3)',
@@ -315,19 +330,19 @@ const styles = StyleSheet.create({
         height: 20,
         alignItems: "center",
         justifyContent: "center",
-       
+
         marginLeft: 200,
-       
+
         backgroundColor: 'rgba(193, 100, 25, 0.3)',
     },
     btnText: {
         color: '#1b3b52',
         fontSize: 27.5,
-       
+
         fontWeight: 'bold',
         textAlign: 'center',
         textAlignVertical: 'center',
-        
+
     },
     text: {
         // color: '#1b3b52',
@@ -344,19 +359,28 @@ const styles = StyleSheet.create({
         marginRight: 250,
         textAlignVertical: 'center',
     },
+
+    buttonview: {
+        marginTop: 30,
+    },
     button: {
         borderRadius: 15,
         width: 328,
         height: 48,
         backgroundColor: "#042628",
         color: "#ffff",
-        marginBottom: 15,
+
+
     },
     button1: {
-        textAlign: 'center',
+
+
         fontWeight: 500,
         fontSize: 18,
         color: "#ffff",
-        
+    },
+    button2: {
+        alignItems: "center",
+        marginTop: 15,
     },
 });
