@@ -8,6 +8,7 @@ import Profile from '../page/profile';
 import GetStart from '../page/getStart';
 import ForgetPass from '../page/forgetPass';
 import Card from '../page/Card';
+import HotDrinkScreen  from '../page/items/HotDrinkScreen';
 import Logo from '../page/Logo';
 // import Signin from '../page/signIN';
 // import SignUp from '../page/register';
@@ -39,6 +40,7 @@ const index = () => {
         <Stack.Screen name="Register" component={Register} />
         <Stack.Screen name="SignIN" component={SignIN} />
         <Stack.Screen name="Card" component={Card} />
+        <Stack.Screen name="HotDrinkScreen" component={HotDrinkScreen } />
         <Stack.Screen name="Profile" component={Profile} />
         <Stack.Screen name="ForgetPass" component={ForgetPass} />
         {/* <Stack.Screen name="Signin" component={Signin} />

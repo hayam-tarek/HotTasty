@@ -5,11 +5,12 @@ import { View, Text, Image, StyleSheet, TouchableOpacity, ScrollView } from 'rea
 const Card = ({ navigation }) => {
   React.useLayoutEffect(() => {
     navigation.setOptions({ headerShown: false });
-}, []);
+  }, []);
 
   const items = [
-    {id: 1, title: "Hot drink", image: require('../assets/hotd.png')},
-    {id: 2, title: "Pizza", image: require('../assets/piizza.png')},
+    {id: 1, title: "Hot drink", image: require('../assets/hotd.png'), screen:'HotDrinkScreen'},
+
+    {id: 2, title: "Pizza", image: require('../assets/piizza.png'), screen: 'HotDrinkScreen'},
     {id: 3, title: "baked cookies", image: require('../assets/bakedcookie.png')},
     {id: 4, title: "Fruit salat  ", image: require('../assets/fruit salad.png')},
     {id: 5, title: "juice", image: require('../assets/juice.png')},
@@ -18,16 +19,21 @@ const Card = ({ navigation }) => {
     {id: 8, title: "healthy food ", image: require('../assets/helthy.png')},
     {id: 9, title: "cold drink", image: require('../assets/cold.png')},
     {id: 10, title: "Salat", image: require('../assets/salat.png')}
+ 
   ];
+
+  const handlePress = (screenName) => {
+    navigation.navigate(screenName);
+  };
 
   return (
     <ScrollView>
       <View style={styles.container}>
         {items.map(item => (
-          <View key={item.id} style={styles.card}>
+          <TouchableOpacity key={item.id} style={styles.card} onPress={() => handlePress(item.screen)}>
             <Image source={item.image} style={styles.image} />
             <Text style={styles.title}>{item.title}</Text>
-          </View>
+          </TouchableOpacity>
         ))}
         <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Profile')}>
           <Text style={styles.buttonText}>Profile</Text>
