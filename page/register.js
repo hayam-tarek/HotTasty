@@ -114,7 +114,7 @@ export default function SignUp({ navigation }) {
           <View style={styles.frameView}>
             <TouchableOpacity
               onPress={() => {
-                navigation.navigate("SignIN");
+                navigation.navigate("Home");
               }}
             >
               <Image source={Frame} style={styles.frame} />
@@ -128,36 +128,36 @@ export default function SignUp({ navigation }) {
 
         <View style={styles.emailView}>
           <Text style={styles.inpText}>First Name</Text>
-          <View style={styles.inpView}>
+          {/* <View style={styles.inpView}> */}
             <TextInput
               style={styles.input}
               onChangeText={fName => setFName(fName)}
             />
-          </View>
+          {/* </View> */}
         </View>
 
 
         <View style={styles.emailView}>
           <Text style={styles.inpText}>Last Name</Text>
-          <View style={styles.inpView}>
+          {/* <View style={styles.inpView}> */}
             <TextInput
               style={styles.input}
               onChangeText={LName => setLName(LName)}
             />
-          </View>
+          {/* </View> */}
         </View>
 
 
 
         <View style={styles.emailView}>
           <Text style={styles.inpText}>Birth Date</Text>
-          <View style={styles.inpView}>
+          {/* <View style={styles.inpView}> */}
             <TextInput
               style={styles.input}
               keyboardType='number-pad'
               onChangeText={birthdate => setbirthdate(birthdate)}
             />
-          </View>
+          {/* </View> */}
         </View>
 
 
@@ -166,25 +166,25 @@ export default function SignUp({ navigation }) {
 
         <View style={styles.emailView}>
           <Text style={styles.inpText}>Phone Number</Text>
-          <View style={styles.inpView}>
+          {/* <View style={styles.inpView}> */}
             <TextInput
               style={styles.input}
               keyboardType='phone-pad'
               onChangeText={phone => setPhone(phone)}
             />
-          </View>
+          {/* </View> */}
         </View>
 
 
         <View style={styles.emailView}>
           <Text style={styles.inpText}>E-Mail Address</Text>
-          <View style={styles.inpView}>
+          {/* <View style={styles.inpView}> */}
             <TextInput
               style={styles.input}
               keyboardType='email-address'
               onChangeText={email => setEmail(email)}
             />
-          </View>
+          {/* </View> */}
         </View>
 
 
@@ -192,13 +192,13 @@ export default function SignUp({ navigation }) {
 
         <View style={styles.emailView}>
           <Text style={styles.inpText}>Password</Text>
-          <View style={styles.inpView}>
+          {/* <View style={styles.inpView}> */}
             <TextInput
               style={styles.input}
               secureTextEntry={true}
               onChangeText={password => setPassword(password)}
             />
-          </View>
+          {/* </View> */}
         </View>
 
 
@@ -289,7 +289,7 @@ const styles = StyleSheet.create({
   },
   button2: {
     alignItems: "center",
-    marginTop: 15,
+    marginTop: 13,
 
   },
   emailView: {
@@ -389,11 +389,12 @@ const styles = StyleSheet.create({
     textAlign: "center",
   },
   GoogleTextView: {
-    marginTop: -15,
+    marginTop: -17,
     borderColor: '#white',
   },
   SinginWithGoogleView: {
-    marginTop: 30,
+    marginTop: 15,
+    marginBottom:15,
     borderRadius:15,
     backgroundColor: '#042628',
     flexDirection: 'row',
