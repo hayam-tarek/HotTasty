@@ -26,30 +26,30 @@ export default function SignIN({ }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-  
-const checkDate = () => {
-  const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-  if (!emailRegex.test(email) || password.length < 8) {
-    alert("Invalid information");
-  } else {
-    login(email, password)
-      .then(() => {
-        navigation.navigate("Card");
-        alert("Login Success!");
-      })
-      .catch((e) => {
-        if (e.code === "auth/invalid-email") {
-          alert("The Email is incorrect");
-        } else if (e.code === "auth/wrong-password") {
-          alert("The password is incorrect");
-        } else if (e.code === "auth/user-not-found") {
-          alert("The user is not exist");
-        } else {
-          alert("Login failed");
-        }
-      });
-  }
-};
+
+  const checkDate = () => {
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email) || password.length < 8) {
+      alert("Invalid information");
+    } else {
+      login(email, password)
+        .then(() => {
+          navigation.navigate("Card");
+          alert("Login Success!");
+        })
+        .catch((e) => {
+          if (e.code === "auth/invalid-email") {
+            alert("The Email is incorrect");
+          } else if (e.code === "auth/wrong-password") {
+            alert("The password is incorrect");
+          } else if (e.code === "auth/user-not-found") {
+            alert("The user is not exist");
+          } else {
+            alert("Login failed");
+          }
+        });
+    }
+  };
 
 
 
@@ -71,7 +71,7 @@ const checkDate = () => {
 
 
   return (
-    
+
     <SafeAreaView style={styles.container}>
 
       <View style={styles.titleView}>
@@ -139,7 +139,7 @@ const checkDate = () => {
           <TouchableOpacity style={styles.touch} onPress={SingInWithGoogle}>
             <Image source={Google} style={styles.GoogleIcon} />
             <View style={styles.GoogleTextView}>
-              <Text style={styles.GoogleText}>Sing in with Google</Text>
+              <Text style={styles.GoogleText}>Sign in with Google</Text>
             </View>
           </TouchableOpacity>
         )}
@@ -192,7 +192,7 @@ const styles = StyleSheet.create({
     color: "#042628",
     fontWeight: 1000,
     fontSize: 23,
-    
+
   },
 
   emailView: {

@@ -17,16 +17,17 @@ import profile from '../assets/profile_pic.jpg'
 
 export default function Profile({ navigation }) {
     React.useLayoutEffect(() => {
-        navigation.setOptions({ headerShown: true ,
-           
-                headerTitle: 'Profile',
-                headerTintColor: '#436f72',
-                headerTitleAlign: 'center',
-                headerBackTitleVisible: true,
-                headerTransparent: true,
-                
+        navigation.setOptions({
+            headerShown: true,
+
+            headerTitle: 'HOME',
+            headerTintColor: '#436f72',
+            headerTitleAlign: 'center',
+            headerBackTitleVisible: true,
+            headerTransparent: true,
+
         }
-            );
+        );
     }, []);
     const [user, setUser] = useState([]);
     const [profilePicUri, setProfilePicUri] = useState(null);
@@ -40,33 +41,80 @@ export default function Profile({ navigation }) {
 
 
     const handleSelectProfilePic = async () => {
-        let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+        // No permissions request is necessary for launching the image library
+        let result = await ImagePicker.launchImageLibraryAsync({
+            mediaTypes: ImagePicker.MediaTypeOptions.All,
+            allowsEditing: true,
+            aspect: [4, 3],
+            quality: 1,
+        });
 
-        if (permissionResult.granted === false) {
-            alert('Permission to access camera roll is required!');
-            return;
+        console.log(result);
+
+        if (!result.canceled) {
+            setImage(result.assets[0].uri);
+            const uploadedUrl = await handleUpdateImage(result.assets[0].uri);
+            updateUserPhotoUrl(uploadedUrl);
         }
+    };
 
-        let pickerResult = await ImagePicker.launchImageLibraryAsync();
-
-        if (pickerResult.cancelled === true) {
-            return;
+    const handleUpdateImage = async (uri) => {
+        const blob = await new Promise((resolve, reject) => {
+            const xhr = new XMLHttpRequest();
+            xhr.onload = function () {
+                resolve(xhr.response);
+            };
+            xhr.onerror = function (e) {
+                console.log(e);
+                reject(new TypeError("Network request failed"));
+            };
+            xhr.responseType = "blob";
+            xhr.open("GET", uri, true);
+            xhr.send(null);
+        });
+        try {
+            const storageRef = ref(storage, "images/" + auth.currentUser.uid);
+            const result = await uploadBytes(storageRef, blob);
+            // blob.close()
+            return await getDownloadURL(storageRef);
+            console.log("upload done")
+        } catch (error) {
+            alert(error)
         }
+        // upload image
 
-        setProfilePicUri(pickerResult.uri);
-    
+    };
+    const updateUserPhotoUrl = (url) => {
+        updateProfile(auth.currentUser, {
+            photoURL: url,
+        })
+        //     let permissionResult = await ImagePicker.requestMediaLibraryPermissionsAsync();
+
+        //     if (permissionResult.granted === false) {
+        //         alert('Permission to access camera roll is required!');
+        //         return;
+        //     }
+
+        //     let pickerResult = await ImagePicker.launchImageLibraryAsync();
+
+        //     if (pickerResult.cancelled === true) {
+        //         return;
+        //     }
+
+        //     setProfilePicUri(pickerResult.uri);
 
 
-    const imageUri = pickerResult.uri;
-    const response = await fetch(imageUri);
-    const blob = await response.blob();
-  
-    const storageRef = ref(storage, `users/${auth.currentUser.uid}/profilePic`);
-    await uploadBytes(storageRef, blob);
-  
-    const downloadUrl = await getDownloadURL(storageRef);
-    setProfilePicUri(downloadUrl);
-};
+
+        // const imageUri = pickerResult.uri;
+        // const response = await fetch(imageUri);
+        // const blob = await response.blob();
+
+        // const storageRef = ref(storage, `users/${auth.currentUser.uid}/profilePic`);
+        // await uploadBytes(storageRef, blob);
+
+        // const downloadUrl = await getDownloadURL(storageRef);
+        // setProfilePicUri(downloadUrl);
+    };
     const handleShowData = async () => {
         // const docRef = doc(db, "users", auth.currentUser.uid);
         // const docSnap = await getDoc(docRef);
@@ -136,7 +184,8 @@ export default function Profile({ navigation }) {
                         <View style={styles.header}></View>
                         <View style={{ alignItems: 'center' }}>
                             <TouchableOpacity>
-                                <Image style={styles.avatar} source={{ uri: profilePicUri ?? 'https://via.placeholder.com/150' }}></Image>
+                                <Image style={styles.avatar} source={auth.currentUser.photoURL ? { uri: auth.currentUser.photoURL } : image ? { uri: image } : profile}></Image>
+                                {/* <Image style={styles.avatar} source={{ uri: profilePicUri ?? 'https://via.placeholder.com/150' }}></Image> */}
 
                             </TouchableOpacity>
                         </View>
@@ -188,9 +237,9 @@ export default function Profile({ navigation }) {
                         <View style={styles.header}></View>
                         <View style={{ alignItems: 'center' }}>
                             <TouchableOpacity>
-                                <Image style={styles.avatar} source={{ uri: profilePicUri ?? 'https://via.placeholder.com/150' }}></Image>
+                                {/* <Image style={styles.avatar} source={{ uri: profilePicUri ?? 'https://via.placeholder.com/150' }}></Image> */}
 
-
+                                <Image style={styles.avatar} source={auth.currentUser.photoURL ? { uri: auth.currentUser.photoURL } : image ? { uri: image } : profile}></Image>
                             </TouchableOpacity>
                         </View>
                         <SafeAreaView style={styles.container}>

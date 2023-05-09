@@ -49,7 +49,7 @@ export default function SignUp({ navigation }) {
       alert("Please enter your first name");
     } else if (lName.length === 0) {
       alert("Please enter your last name");
-    }else {
+    } else {
       register(email, password)
         .then(() => {
           console.log("registerd");
@@ -107,121 +107,121 @@ export default function SignUp({ navigation }) {
   return (
     <KeyboardAvoidingView style={styles.container} behavior='height'>
       <ScrollView>
-         <View   style={{alignItems:"center"}}>
+        <View style={{ alignItems: "center" }}>
 
-         
-        <View style={styles.titleView}>
-          <View style={styles.frameView}>
-            <TouchableOpacity
-              onPress={() => {
-                navigation.navigate("Home");
-              }}
-            >
-              <Image source={Frame} style={styles.frame} />
-            </TouchableOpacity>
+
+          <View style={styles.titleView}>
+            <View style={styles.frameView}>
+              <TouchableOpacity
+                onPress={() => {
+                  navigation.navigate("Home");
+                }}
+              >
+                <Image source={Frame} style={styles.frame} />
+              </TouchableOpacity>
+            </View>
+            <View style={styles.wordView}>
+              <Text style={styles.title}>Sign Up</Text>
+            </View>
           </View>
-          <View style={styles.wordView}>
-            <Text style={styles.title}>Sign Up</Text>
-          </View>
-        </View>
 
 
-        <View style={styles.emailView}>
-          <Text style={styles.inpText}>First Name</Text>
-          {/* <View style={styles.inpView}> */}
+          <View style={styles.emailView}>
+            <Text style={styles.inpText}>First Name</Text>
+            {/* <View style={styles.inpView}> */}
             <TextInput
               style={styles.input}
               onChangeText={fName => setFName(fName)}
             />
-          {/* </View> */}
-        </View>
+            {/* </View> */}
+          </View>
 
 
-        <View style={styles.emailView}>
-          <Text style={styles.inpText}>Last Name</Text>
-          {/* <View style={styles.inpView}> */}
+          <View style={styles.emailView}>
+            <Text style={styles.inpText}>Last Name</Text>
+            {/* <View style={styles.inpView}> */}
             <TextInput
               style={styles.input}
               onChangeText={LName => setLName(LName)}
             />
-          {/* </View> */}
-        </View>
+            {/* </View> */}
+          </View>
 
 
 
-        <View style={styles.emailView}>
-          <Text style={styles.inpText}>Birth Date</Text>
-          {/* <View style={styles.inpView}> */}
+          <View style={styles.emailView}>
+            <Text style={styles.inpText}>Birth Date</Text>
+            {/* <View style={styles.inpView}> */}
             <TextInput
               style={styles.input}
               keyboardType='number-pad'
               onChangeText={birthdate => setbirthdate(birthdate)}
             />
-          {/* </View> */}
-        </View>
+            {/* </View> */}
+          </View>
 
 
 
 
 
-        <View style={styles.emailView}>
-          <Text style={styles.inpText}>Phone Number</Text>
-          {/* <View style={styles.inpView}> */}
+          <View style={styles.emailView}>
+            <Text style={styles.inpText}>Phone Number</Text>
+            {/* <View style={styles.inpView}> */}
             <TextInput
               style={styles.input}
               keyboardType='phone-pad'
               onChangeText={phone => setPhone(phone)}
             />
-          {/* </View> */}
-        </View>
+            {/* </View> */}
+          </View>
 
 
-        <View style={styles.emailView}>
-          <Text style={styles.inpText}>E-Mail Address</Text>
-          {/* <View style={styles.inpView}> */}
+          <View style={styles.emailView}>
+            <Text style={styles.inpText}>E-Mail Address</Text>
+            {/* <View style={styles.inpView}> */}
             <TextInput
               style={styles.input}
               keyboardType='email-address'
               onChangeText={email => setEmail(email)}
             />
-          {/* </View> */}
-        </View>
+            {/* </View> */}
+          </View>
 
 
 
 
-        <View style={styles.emailView}>
-          <Text style={styles.inpText}>Password</Text>
-          {/* <View style={styles.inpView}> */}
+          <View style={styles.emailView}>
+            <Text style={styles.inpText}>Password</Text>
+            {/* <View style={styles.inpView}> */}
             <TextInput
               style={styles.input}
               secureTextEntry={true}
               onChangeText={password => setPassword(password)}
             />
-          {/* </View> */}
-        </View>
+            {/* </View> */}
+          </View>
 
 
 
-        <View style={styles.buttonview}>
-          <TouchableOpacity style={styles.button} onPress={checkDate}>
-            <View style={styles.button2}>
-              <Text style={styles.button1}> Sign Up</Text>
-            </View>
-          </TouchableOpacity>
-        </View>
-
-        <View style={styles.SinginWithGoogleView}>
-          {value ? (
-            navigation.navigate("SignIN")
-          ) : (
-            <TouchableOpacity style={styles.touch} onPress={SingUpWithGoogle}>
-              <Image source={Google} style={styles.GoogleIcon} />
-              <View style={styles.GoogleTextView}>
-                <Text style={styles.GoogleText}>Sing up with Google</Text>
+          <View style={styles.buttonview}>
+            <TouchableOpacity style={styles.button} onPress={checkDate}>
+              <View style={styles.button2}>
+                <Text style={styles.button1}> Sign Up</Text>
               </View>
             </TouchableOpacity>
-          )}
+          </View>
+
+          <View style={styles.SinginWithGoogleView}>
+            {value ? (
+              navigation.navigate("SignIN")
+            ) : (
+              <TouchableOpacity style={styles.touch} onPress={SingUpWithGoogle}>
+                <Image source={Google} style={styles.GoogleIcon} />
+                <View style={styles.GoogleTextView}>
+                  <Text style={styles.GoogleText}>Sign up with Google</Text>
+                </View>
+              </TouchableOpacity>
+            )}
           </View>
         </View>
 
@@ -394,8 +394,8 @@ const styles = StyleSheet.create({
   },
   SinginWithGoogleView: {
     marginTop: 15,
-    marginBottom:15,
-    borderRadius:15,
+    marginBottom: 15,
+    borderRadius: 15,
     backgroundColor: '#042628',
     flexDirection: 'row',
   },
